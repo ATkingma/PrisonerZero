@@ -43,7 +43,6 @@ public class DungionGenerator : MonoBehaviour
     private List<GameObject> roomsList = new List<GameObject>();
     private List<GameObject> importantRooms = new List<GameObject>();
 
-    // Delaunay triangulation variables
     private Delaunator delaunator;
     private GameObject trianglesContainer;
 
@@ -115,7 +114,6 @@ public class DungionGenerator : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
 
-        // Extract positions of important rooms for Delaunay triangulation
         List<IPoint> points = new List<IPoint>();
 
 
@@ -127,11 +125,7 @@ public class DungionGenerator : MonoBehaviour
         delaunator = new Delaunator(points.ToArray());
 
         VisualizeDelaunay();
-        //RemoveRoomAttachments();
-
-        // Create the MST using Prim's algorithm
         CreateMST();
-        //RemoveBozoRoom();
         SpawnTilesAlongPlayerLine();
     }
 
@@ -158,21 +152,18 @@ public class DungionGenerator : MonoBehaviour
     {
         if (delaunator == null) return;
 
-        // Create container for triangles if not already created
         if (trianglesContainer == null)
         {
             trianglesContainer = new GameObject("DelaunayTriangles");
         }
         else
         {
-            // Clear existing triangles
             foreach (Transform child in trianglesContainer.transform)
             {
                 Destroy(child.gameObject);
             }
         }
 
-        // Iterate through each triangle and create visual representation
         delaunator.ForEachTriangleEdge(edge =>
         {
             Vector3 p1 = edge.P.ToVector3();
@@ -180,7 +171,6 @@ public class DungionGenerator : MonoBehaviour
             Vector3 p2 = edge.Q.ToVector3();
             p2.z = -1;
 
-            // Create line renderer for triangle edge
             GameObject triangleEdgeObject = new GameObject("TriangleEdge");
             triangleEdgeObject.transform.parent = trianglesContainer.transform;
             LineRenderer lineRenderer = triangleEdgeObject.AddComponent<LineRenderer>();

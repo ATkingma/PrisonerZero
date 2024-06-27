@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-public  class Weapon : MonoBehaviour
+public  class Weapon : MonoBehaviour, IWeaponUpgrade
 {
     public Transform barrel; // The barrel from where bullets will be fired
     public float BulletVelocity => bulletVelocity;

@@ -45,6 +45,7 @@ public class DungionGenerator : MonoBehaviour
 
     private Delaunator delaunator;
     private GameObject trianglesContainer;
+    private GameObject MSTEdgeParent;
 
     private List<LineRenderer> edges = new List<LineRenderer>();
 
@@ -126,6 +127,7 @@ public class DungionGenerator : MonoBehaviour
 
         VisualizeDelaunay();
         CreateMST();
+        MakeSquareLines();
         SpawnTilesAlongPlayerLine();
     }
 
@@ -243,7 +245,7 @@ public class DungionGenerator : MonoBehaviour
 
     private void VisualizeMST(int[] parent)
     {
-        GameObject MSTEdgeParent = new GameObject("MSTEdges");
+        MSTEdgeParent = new GameObject("MSTEdges");
         List<LineRenderer> notUssedEdges = new List<LineRenderer>(edges);
 
         for (int i = 1; i < parent.Length; i++)
@@ -271,7 +273,7 @@ public class DungionGenerator : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < notUssedEdges.Count; i++)
+        for (int i = 0; i < notUssedEdges.Count - 1; i++)
         {
             if (ChanceUtility.Chance(edgeBringBackChance))
             {
@@ -296,34 +298,51 @@ public class DungionGenerator : MonoBehaviour
     {
         foreach (LineRenderer lineRenderer in playerLine)
         {
-            Vector3 startPos = lineRenderer.GetPosition(0); // Start position of the edge
-            Vector3 endPos = lineRenderer.GetPosition(1); // End position of the edge
-
-            // Calculate distance between start and end of the edge
-            float edgeLength = Vector3.Distance(startPos, endPos);
-
-            // Number of tiles to spawn along this edge
-            int numTiles = Mathf.FloorToInt(edgeLength); // Adjust as needed for spacing
-
-            // Calculate increment vector for tile positions
-            Vector3 increment = (endPos - startPos) / numTiles;
-
-            // Spawn tiles along the edge
-            for (int i = 0; i < numTiles; i++)
+            for (int count = 0; count < lineRenderer.positionCount - 1; count++)
             {
-                // Calculate position for the current tile
-                Vector3 tilePosition = startPos + increment * i;
+                Vector3 startPos = lineRenderer.GetPosition(count); // Start position of the edge
+                Vector3 endPos = lineRenderer.GetPosition(count + 1); // End position of the edge
 
-                // Instantiate tilePrefab at tilePosition
-                GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
-                tile.transform.parent = transform; // Parent to DungionGenerator
+                // Calculate distance between start and end of the edge
+                float edgeLength = Vector3.Distance(startPos, endPos);
 
-                // Optionally, if you want to add a sprite to the t
+                // Number of tiles to spawn along this edge
+                int numTiles = Mathf.FloorToInt(edgeLength); // Adjust as needed for spacing
 
-                // Adjust spriteRenderer properties (sorting layer, etc.) as needed
+                // Calculate increment vector for tile positions
+                Vector3 increment = (endPos - startPos) / numTiles;
+
+                // Spawn tiles along the edge
+                for (int i = 0; i < numTiles; i++)
+                {
+                    // Calculate position for the current tile
+                    Vector3 tilePosition = startPos + increment * i;
+
+                    // Instantiate tilePrefab at tilePosition
+                    if (!InBoundsOfRoom(tilePosition))
+                    {
+                        GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
+                        tile.transform.parent = transform; // Parent to DungionGenerator
+                    }
+                }
             }
         }
-        MakeSquareLines();
+        //Destroy(MSTEdgeParent);
+        Destroy(trianglesContainer);
+    }
+
+    private bool InBoundsOfRoom(Vector3 position)
+    {
+        foreach (GameObject room in importantRooms)
+        {
+            Vector3 roomPosition = room.transform.position;
+            if (position.x >= roomPosition.x - 20 / 2 && position.x <= roomPosition.x + 20 / 2 &&
+                position.y >= roomPosition.y - 20 / 2 && position.y <= roomPosition.y + 20 / 2)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void MakeSquareLines()
@@ -340,17 +359,17 @@ public class DungionGenerator : MonoBehaviour
             // 20 == width and height;
             if (diffX <= 20 / 2 && diffX >= 0 || diffX > -20 / 2 && diffX <= 0)
             {
-                // straight line on y axis
-                
-                lineRenderer.SetPosition(0, startPos - new Vector3(diffX / 2, 0, -5));
-                lineRenderer.SetPosition(1, startPos - new Vector3(diffX / 2, diffY, -5));
+                // straight line on y axis        
+  
+                lineRenderer.SetPosition(0, startPos - new Vector3(diffX, 0 / 2, -5));
+                lineRenderer.SetPosition(1, startPos - new Vector3(diffX, diffY, -5));
             }
             else if(diffY <= 20 / 2 && diffY >= 0 || diffY >= -20 / 2 && diffY <= 0)
             {
                 // straight line on x axis
 
-                lineRenderer.SetPosition(0, startPos - new Vector3(0, diffY / 2, -5));
-                lineRenderer.SetPosition(1, startPos - new Vector3(diffX, diffY / 2, -5));
+                lineRenderer.SetPosition(0, startPos - new Vector3(0, diffY, -5));
+                lineRenderer.SetPosition(1, startPos - new Vector3(diffX, diffY, -5));
             }
             else
             {

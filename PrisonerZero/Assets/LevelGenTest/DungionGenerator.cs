@@ -323,6 +323,44 @@ public class DungionGenerator : MonoBehaviour
                 // Adjust spriteRenderer properties (sorting layer, etc.) as needed
             }
         }
+        MakeSquareLines();
     }
 
+    private void MakeSquareLines()
+    {
+        RemoveBozoRoom();
+        foreach (LineRenderer lineRenderer in playerLine)
+        {
+            Vector3 startPos = lineRenderer.GetPosition(0); // Start position of the edge
+            Vector3 endPos = lineRenderer.GetPosition(1); // End position of the edge
+
+            float diffX = startPos.x - endPos.x;
+            float diffY = startPos.y - endPos.y;
+
+            // 20 == width and height;
+            if (diffX <= 20 / 2 && diffX >= 0 || diffX > -20 / 2 && diffX <= 0)
+            {
+                // straight line on y axis
+                
+                lineRenderer.SetPosition(0, startPos - new Vector3(diffX / 2, 0, -5));
+                lineRenderer.SetPosition(1, startPos - new Vector3(diffX / 2, diffY, -5));
+            }
+            else if(diffY <= 20 / 2 && diffY >= 0 || diffY >= -20 / 2 && diffY <= 0)
+            {
+                // straight line on x axis
+
+                lineRenderer.SetPosition(0, startPos - new Vector3(0, diffY / 2, -5));
+                lineRenderer.SetPosition(1, startPos - new Vector3(diffX, diffY / 2, -5));
+            }
+            else
+            {
+                // square line
+
+                lineRenderer.positionCount = 3;
+                lineRenderer.SetPosition(0, startPos + new Vector3(0, 0, -5));
+                lineRenderer.SetPosition(1, startPos + new Vector3(-diffX, 0, -5));
+                lineRenderer.SetPosition(2, endPos + new Vector3(0, 0, -5));
+            }
+        }
+    }
 }

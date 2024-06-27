@@ -176,7 +176,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 31.51
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -237,27 +237,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rooms:
-  - {fileID: 6696615539870736047, guid: 9b7d9ff88958fb44d810c2f567664908, type: 3}
-  - {fileID: 6696615539870736047, guid: cf867d368502bc04abb698f01323abd6, type: 3}
-  - {fileID: 6696615539870736047, guid: d3c2f28460073bb439fee34b18f6315c, type: 3}
-  - {fileID: 6696615539870736047, guid: 718feedea87f4ef42a8a7bbd74b341d3, type: 3}
-  - {fileID: 6696615539870736047, guid: ad14f84910f4d09478fdad0ee4e90931, type: 3}
-  - {fileID: 6696615539870736047, guid: 7a1470310d247a842af6fadea6f23ad6, type: 3}
-  - {fileID: 6696615539870736047, guid: 8334057039fcd914ba2c65d6fd3a0ae9, type: 3}
-  - {fileID: 6696615539870736047, guid: 3de8a60b57205474e8af800bf7accde5, type: 3}
-  - {fileID: 190413526242671281, guid: 241f47b69ef72134d8da3a3844df36fc, type: 3}
-  - {fileID: 6417488311580589736, guid: 51a3d142ebcb21f48a8b2cb1cc597ad1, type: 3}
+  - {fileID: 6812724659384595764, guid: 8a60b721aece04f4dac5fe54c0796237, type: 3}
   - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
-  - {fileID: 6696615539870736047, guid: 9b7d9ff88958fb44d810c2f567664908, type: 3}
-  - {fileID: 6696615539870736047, guid: cf867d368502bc04abb698f01323abd6, type: 3}
-  - {fileID: 6696615539870736047, guid: d3c2f28460073bb439fee34b18f6315c, type: 3}
-  - {fileID: 6696615539870736047, guid: 9b7d9ff88958fb44d810c2f567664908, type: 3}
-  - {fileID: 6696615539870736047, guid: cf867d368502bc04abb698f01323abd6, type: 3}
-  - {fileID: 6696615539870736047, guid: d3c2f28460073bb439fee34b18f6315c, type: 3}
-  minRooms: 37
-  maxRooms: 50
-  bigRoomSize: 5
-  circleRadius: 10
+  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
+  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
+  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
+  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
+  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
+  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
+  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
+  minRooms: 44
+  maxRooms: 60
+  bigRoomSize: 18
+  circleRadius: 9.82
+  edgeBringBackChance: 21.4
+  seed: 0
+  floorSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  tilePrefab: {fileID: 2464169382958617440, guid: beb93e9978cc4e94e828a5057bc25bb9, type: 3}
 --- !u!4 &813543753
 Transform:
   m_ObjectHideFlags: 0

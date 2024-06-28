@@ -20,11 +20,17 @@ public class Bullet : MonoBehaviour
     public void ResetBullet()
     {
         rb.velocity = Vector2.zero;
-        rb.angularVelocity = 0f;
+        transform.position = Vector2.zero;
+        rb.velocity = transform.right * speed;
     }
 
     private void OnEnable()
     {
         rb.velocity = transform.right * speed;
+    }
+
+    private void OnDisable()
+    {
+      
     }
 }

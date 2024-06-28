@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class PlayerArm : MonoBehaviour
 {
-    [SerializeField] private Transform objectToRotate; // Reference to the object to rotate
-    [SerializeField] private Weapon currentWeapon; // Reference to the weapon
+    [SerializeField] private Transform objectToRotate;
 
     void Update()
     {
         RotateObject();
-        HandleShooting();
     }
 
     void RotateObject()
@@ -26,19 +24,5 @@ public class PlayerArm : MonoBehaviour
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         objectToRotate.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-    }
-
-    void HandleShooting()
-    {
-        if (currentWeapon == null)
-        {
-            Debug.LogWarning("Current weapon is not assigned.");
-            return;
-        }
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            currentWeapon.Shoot();
-        }
     }
 }

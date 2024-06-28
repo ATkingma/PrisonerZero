@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 173983888}
   - component: {fileID: 173983892}
   - component: {fileID: 173983887}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToRotate: {fileID: 200386029}
-  currentWeapon: {fileID: 1911696252}
 --- !u!1 &200386028
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 200386029}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: hold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -831,7 +830,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 870277439}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BarrelEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1227,6 +1226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1826269948}
   - component: {fileID: 1826269947}
+  - component: {fileID: 1826269949}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1246,8 +1246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3852eb084007e664bb95eda0a601fc5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7798276232600770399, guid: 93aabddddf5b33f4d8d882bb7c15db72, type: 3}
-  poolSize: 100
+  poolSize: 20
 --- !u!4 &1826269948
 Transform:
   m_ObjectHideFlags: 0
@@ -1263,6 +1262,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1826269949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826269946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13053a83b506ab947a3c10f2c507a7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSize: 0
+  maxBulletSize: 0
+  bulletSpread: 0
+  maxBulletSpread: 0
+  bulletProjectals: 0
+  maxBulletProjectals: 0
+  bulletPierce: 0
+  maxBulletPierce: 0
+  bulletBounces: 0
+  maxBulletBounces: 0
+  reloadTime: 0
+  maxReloadTime: 0
+  magSize: 0
+  maxMagSize: 0
+  movementSpeed: 0
+  maxMovementSpeed: 0
+  health: 0
+  maxHealth: 0
+  pickupRange: 0
+  maxPickupRange: 0
 --- !u!1 &1911696249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,8 +1305,10 @@ GameObject:
   - component: {fileID: 1911696250}
   - component: {fileID: 1911696251}
   - component: {fileID: 1911696252}
-  m_Layer: 0
-  m_Name: Square
+  - component: {fileID: 1911696253}
+  - component: {fileID: 1911696254}
+  m_Layer: 7
+  m_Name: Wapen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1356,13 +1389,71 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911696249}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5524cb45380331f4287ea141ed424978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   barrel: {fileID: 870277439}
+  bulletPrefab: {fileID: 7798276232600770399, guid: 93aabddddf5b33f4d8d882bb7c15db72, type: 3}
+  damage: 1
+  fireRate: 22.57
   bulletVelocity: 20
+  bulletSize: 1
+  bulletSpread: 1
+  bulletProjectals: 1
+  bulletPierce: 1
+  bulletBounces: 1
+  reloadTime: 1
+  magSize: 10
+--- !u!114 &1911696253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911696249}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd187066a527cea48896735926c80d8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrel: {fileID: 870277439}
+  bulletPrefab: {fileID: 7798276232600770399, guid: 93aabddddf5b33f4d8d882bb7c15db72, type: 3}
+  damage: 1
+  fireRate: 0
+  bulletVelocity: 20
+  bulletSize: 1
+  bulletSpread: 1
+  bulletProjectals: 1
+  bulletPierce: 1
+  bulletBounces: 1
+  reloadTime: 2
+  magSize: 20
+--- !u!114 &1911696254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911696249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4d02aae441d394c9dd29f472faaac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrel: {fileID: 870277439}
+  bulletPrefab: {fileID: 7798276232600770399, guid: 93aabddddf5b33f4d8d882bb7c15db72, type: 3}
+  damage: 1
+  fireRate: 0.1
+  bulletVelocity: 20
+  bulletSize: 1
+  bulletSpread: 1
+  bulletProjectals: 1
+  bulletPierce: 1
+  bulletBounces: 1
+  reloadTime: 0.5
+  magSize: 35
 --- !u!1 &2001635402
 GameObject:
   m_ObjectHideFlags: 0

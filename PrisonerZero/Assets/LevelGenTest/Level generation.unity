@@ -216,7 +216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 813543753}
-  - component: {fileID: 813543752}
+  - component: {fileID: 813543754}
   m_Layer: 0
   m_Name: Dungion Generator
   m_TagString: Untagged
@@ -224,36 +224,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &813543752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 813543751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfe61f15c056b0b41abe19bc9c955f86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rooms:
-  - {fileID: 6812724659384595764, guid: 8a60b721aece04f4dac5fe54c0796237, type: 3}
-  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
-  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
-  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
-  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
-  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
-  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
-  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
-  - {fileID: 6696615539870736047, guid: 4fbecb4a3504df14c993f162f2ad3b03, type: 3}
-  minRooms: 44
-  maxRooms: 60
-  bigRoomSize: 18
-  circleRadius: 9.82
-  edgeBringBackChance: 21.4
-  seed: 0
-  floorSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  tilePrefab: {fileID: 2464169382958617440, guid: beb93e9978cc4e94e828a5057bc25bb9, type: 3}
 --- !u!4 &813543753
 Transform:
   m_ObjectHideFlags: 0
@@ -269,3 +239,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &813543754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813543751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0d96bf8b3601c4eacba07841545a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rooms:
+  - {fileID: 6696615539870736047, guid: 3de8a60b57205474e8af800bf7accde5, type: 3}
+  - {fileID: 6696615539870736047, guid: 9b7d9ff88958fb44d810c2f567664908, type: 3}
+  - {fileID: 6696615539870736047, guid: cf867d368502bc04abb698f01323abd6, type: 3}
+  - {fileID: 6696615539870736047, guid: d3c2f28460073bb439fee34b18f6315c, type: 3}
+  - {fileID: 6696615539870736047, guid: 718feedea87f4ef42a8a7bbd74b341d3, type: 3}
+  - {fileID: 6696615539870736047, guid: 7a1470310d247a842af6fadea6f23ad6, type: 3}
+  - {fileID: 6812724659384595764, guid: 8a60b721aece04f4dac5fe54c0796237, type: 3}
+  minRooms: 64
+  maxRooms: 74
+  bigRoomSize: 18
+  circleRadius: 10
+  edgeBringBackChance: 24.5
+  seed: 0
+  floorSprite: {fileID: 21300000, guid: f09eae8c0ea04254b90c5386a034a225, type: 3}
+  tilePrefab: {fileID: 2464169382958617440, guid: beb93e9978cc4e94e828a5057bc25bb9, type: 3}

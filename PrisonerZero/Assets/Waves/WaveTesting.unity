@@ -388,21 +388,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46f778ba29da9f4e8eeb1b852ebe595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPosition: {x: 5, y: 0}
+  spawnMaxPosition: {x: 10, y: 10}
+  spawnMinPosition: {x: -10, y: -10}
   waves:
   - enemies:
     - enemy: {fileID: 3141768716715622640, guid: 8b5eab0506dbc5741af61f707162dde7, type: 3}
       amount: 5
-      waitTime: 0.2
+      waitTime: 0
+      waitTimeNextEnemy: 5
     - enemy: {fileID: 3141768716715622640, guid: 8b5eab0506dbc5741af61f707162dde7, type: 3}
       amount: 10
       waitTime: 0.5
-    waitWaveTime: 10
+      waitTimeNextEnemy: 0.1
+    waitWaveTime: 5
   - enemies:
     - enemy: {fileID: 3141768716715622640, guid: 8b5eab0506dbc5741af61f707162dde7, type: 3}
       amount: 5
-      waitTime: 1
+      waitTime: 0.1
+      waitTimeNextEnemy: 0.1
     - enemy: {fileID: 3141768716715622640, guid: 8b5eab0506dbc5741af61f707162dde7, type: 3}
       amount: 10
-      waitTime: 1
+      waitTime: 0.1
+      waitTimeNextEnemy: 0.1
     waitWaveTime: 5

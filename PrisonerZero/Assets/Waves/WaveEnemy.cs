@@ -7,8 +7,8 @@ using UnityEngine;
 public class WaveEnemy
 {
     public GameObject enemy;
-
     public int amount;
-
     public float waitTime = .1f;
+    public float waitTimeNextEnemy = 1;
+
 }

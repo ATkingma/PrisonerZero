@@ -5,11 +5,12 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rb;
 
-    private float speed;
+    public float speed;
 
     void OnTriggerEnter2D(Collider2D _hitInfo)
     {
         gameObject.SetActive(false);
+        ResetBullet();
     }
 
     public void SetSpeed(float _speed)
@@ -27,10 +28,5 @@ public class Bullet : MonoBehaviour
     private void OnEnable()
     {
         rb.velocity = transform.right * speed;
-    }
-
-    private void OnDisable()
-    {
-      
     }
 }

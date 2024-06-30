@@ -76,15 +76,15 @@ public class BulletObjectPool : MonoBehaviour
         }
     }
 
-    public void ChangePoolSize(int _newPoolSize)
+    public void ChangePoolSize(int _newPoolSize,float _bulletspeed)
     {
-        _newPoolSize *= 2;
         int newBullets = _newPoolSize-poolSize;
         poolSize = _newPoolSize;
 
         for (int i = 0; i < newBullets; i++)
         {
             Bullet obj = Instantiate(bulletPrefab).GetComponent<Bullet>();
+            obj.SetSpeed(_bulletspeed);
             obj.gameObject.SetActive(false);
             pool.Add(obj);
         }

@@ -51,7 +51,7 @@ public class BaseWeapon : MonoBehaviour
         BulletObjectPool.Instance.SetBullet(bulletPrefab);
         UpgradeManager.Instance.SetWeaponStats(bulletSize, bulletSpread, bulletProjectals, bulletPierce, bulletBounces, reloadTime, magSize);
         BulletObjectPool.Instance.ChangeBulletSpeed(bulletVelocity);
-        BulletObjectPool.Instance.ChangePoolSize(magSize);
+        BulletObjectPool.Instance.ChangePoolSize(magSize, bulletVelocity);
     }
 
 
@@ -73,6 +73,8 @@ public class BaseWeapon : MonoBehaviour
         GameObject bullet = BulletObjectPool.Instance.GetPooledObject();
         if (bullet != null)
         {
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            rb.position = barrel.transform.position;
             bullet.transform.position = barrel.position;
             bullet.transform.rotation = barrel.rotation;
             bullet.SetActive(true);

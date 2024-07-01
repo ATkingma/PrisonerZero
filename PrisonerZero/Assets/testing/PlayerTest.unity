@@ -800,6 +800,7 @@ MonoBehaviour:
   player: {fileID: 173983891}
   smoothSpeed: 0.1
   offset: {x: 0, y: 0, z: -5}
+  mouseInfluence: 0.08
 --- !u!1 &613529413
 GameObject:
   m_ObjectHideFlags: 0

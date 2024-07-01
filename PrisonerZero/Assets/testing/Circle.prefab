@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 7798276232600770398}
+  damage: 5
 --- !u!50 &7798276232600770398
 Rigidbody2D:
   serializedVersion: 4

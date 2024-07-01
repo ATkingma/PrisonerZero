@@ -5,10 +5,17 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rb;
 
-    public float speed;
+    private float speed;
+
+    [SerializeField]
+    private float damage;
 
     void OnTriggerEnter2D(Collider2D _hitInfo)
     {
+        if (_hitInfo.GetComponent<BaseHealth>())
+        {
+            _hitInfo.GetComponent<BaseHealth>().DoDamage(damage);
+        }
         gameObject.SetActive(false);
         ResetBullet();
     }

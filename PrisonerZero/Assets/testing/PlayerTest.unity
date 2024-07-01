@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 173983888}
   - component: {fileID: 173983892}
   - component: {fileID: 173983887}
-  - component: {fileID: 173983893}
   - component: {fileID: 173983894}
   m_Layer: 7
   m_Name: player
@@ -279,20 +278,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToRotate: {fileID: 200386029}
---- !u!114 &173983893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 173983886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b7090fa02b607a4188ad4b25029495a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 870277439}
-  spriteRenderer: {fileID: 173983890}
 --- !u!114 &173983894
 MonoBehaviour:
   m_ObjectHideFlags: 0

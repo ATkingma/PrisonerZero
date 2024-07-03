@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
 
     private float speed;
 
-    [SerializeField]
     private float damage;
 
     void OnTriggerEnter2D(Collider2D _hitInfo)
@@ -23,6 +22,11 @@ public class Bullet : MonoBehaviour
     public void SetSpeed(float _speed)
     {
         this.speed = _speed;
+    }
+
+    public void SetDamage(float _damage)
+    {
+        this.damage = _damage;
     }
 
     public void ResetBullet()

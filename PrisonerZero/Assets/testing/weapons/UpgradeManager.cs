@@ -6,6 +6,9 @@ public class UpgradeManager : MonoBehaviour
     private static UpgradeManager instance;
 
     [SerializeField]
+    private PlayerMovement pm;
+    [Space(10)]
+    [SerializeField]
     private float bulletSize;
     [SerializeField]
     private float maxBulletSize;
@@ -195,6 +198,8 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             movementSpeed = tempMovementSpeed;
+            pm.SetMovementSpeed(movementSpeed);
+
         }
     }
 

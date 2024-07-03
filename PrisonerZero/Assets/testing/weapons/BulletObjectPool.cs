@@ -95,4 +95,12 @@ public class BulletObjectPool : MonoBehaviour
         this.bulletPrefab = bulletPrefab;
         SpawnBullets();
     }
+
+    public void ChangeBulletDamage(float damage)
+    {
+        foreach (Bullet obj in pool)
+        {
+            obj.SetDamage(damage);
+        }
+    }
 }

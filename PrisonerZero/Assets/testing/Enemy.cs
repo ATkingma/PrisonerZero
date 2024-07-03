@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D _hitInfo)
     {
         if (_hitInfo.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
+        { 
             BaseHealth playerHealth = _hitInfo.GetComponent<BaseHealth>();
             if (playerHealth != null)
             {

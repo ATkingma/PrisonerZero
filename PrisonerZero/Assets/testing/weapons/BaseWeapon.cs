@@ -51,6 +51,7 @@ public class BaseWeapon : MonoBehaviour
         BulletObjectPool.Instance.SetBullet(bulletPrefab);
         UpgradeManager.Instance.SetWeaponStats(bulletSize, bulletSpread, bulletProjectals, bulletPierce, bulletBounces, reloadTime, magSize);
         BulletObjectPool.Instance.ChangeBulletSpeed(bulletVelocity);
+        BulletObjectPool.Instance.ChangeBulletDamage(damage);
         BulletObjectPool.Instance.ChangePoolSize(magSize, bulletVelocity);
     }
 

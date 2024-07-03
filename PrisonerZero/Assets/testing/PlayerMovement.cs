@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rb;
     [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    private List<SpriteRenderer> spriteRenderer = new List<SpriteRenderer>();
 
 
     private Vector2 movement;
@@ -19,12 +21,7 @@ public class PlayerMovement : MonoBehaviour
             rb = GetComponent<Rigidbody2D>();
         }
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        if (spriteRenderer == null)
-        {
-            Debug.LogError("SpriteRenderer component is missing from this GameObject.");
-        }
+        UpgradeManager.Instance.SetPlayerStats(moveSpeed, 100, 10);
     }
 
     void Update()
@@ -36,16 +33,27 @@ public class PlayerMovement : MonoBehaviour
 
         if (movement.x < 0)
         {
-            spriteRenderer.flipX = true;
+            foreach(SpriteRenderer r in spriteRenderer)
+            {
+                r.flipX = true;
+            }
         }
         else if (movement.x > 0)
         {
-            spriteRenderer.flipX = false;
+            foreach (SpriteRenderer r in spriteRenderer)
+            {
+                r.flipX = false;
+            }
         }
     }
 
     void FixedUpdate()
     {
         rb.velocity = movement * moveSpeed;
+    }
+
+    public void SetMovementSpeed(float movementSpeed)
+    {
+        this.moveSpeed = movementSpeed;
     }
 }

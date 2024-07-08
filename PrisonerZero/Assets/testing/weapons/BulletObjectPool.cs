@@ -103,4 +103,12 @@ public class BulletObjectPool : MonoBehaviour
             obj.SetDamage(damage);
         }
     }
+
+    public void ChangeBulletSize(float bulletSize)
+    {
+        foreach (Bullet obj in pool)
+        {
+            obj.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x, transform.localScale.x)*bulletSize;
+        }
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -49,8 +50,9 @@ public class BaseWeapon : MonoBehaviour
     public virtual void SetWeaponStats()
     {
         BulletObjectPool.Instance.SetBullet(bulletPrefab);
-        UpgradeManager.Instance.SetWeaponStats(bulletSize, bulletSpread, bulletProjectals, bulletPierce, bulletBounces, reloadTime, magSize);
+        UpgradeManager.Instance.SetWeaponStats(bulletSize, bulletSpread, bulletProjectals, bulletPierce, bulletBounces, reloadTime, magSize,this);
         BulletObjectPool.Instance.ChangeBulletSpeed(bulletVelocity);
+        BulletObjectPool.Instance.ChangeBulletSize(bulletSize);
         BulletObjectPool.Instance.ChangeBulletDamage(damage);
         BulletObjectPool.Instance.ChangePoolSize(magSize, bulletVelocity);
     }
@@ -99,4 +101,39 @@ public class BaseWeapon : MonoBehaviour
         currentMag = magSize;
     }
 
+    public void ChangeBulletSize(float tempBulletSize)
+    {
+        bulletSize = tempBulletSize;
+        BulletObjectPool.Instance.ChangeBulletSize(tempBulletSize);
+    }
+
+    public void ChangeBulletSpread(float tempBulletSpread)
+    {
+        bulletSize = tempBulletSpread;
+    }
+
+    public void ChangeBulletProjectals(int tempBulletProjectals)
+    {
+        bulletProjectals = tempBulletProjectals;
+    }
+
+    public void ChangeBulletPierce(float tempBulletPierce)
+    {
+        bulletPierce = (int)tempBulletPierce;
+    }
+
+    public void ChangeBulletBounces(float tempBulletBounces)
+    {
+        bulletBounces = (int)tempBulletBounces;
+    }
+
+    public void ChangeReloadTime(float tempReloadTime)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ChangeMagSize(float tempIncreaseMagSize)
+    {
+        throw new NotImplementedException();
+    }
 }

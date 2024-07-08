@@ -5,6 +5,8 @@ public class UpgradeManager : MonoBehaviour
     public static UpgradeManager Instance => instance;
     private static UpgradeManager instance;
 
+    private BaseWeapon weapon;
+
     [SerializeField]
     private PlayerMovement pm;
     [Space(10)]
@@ -70,7 +72,7 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    public void SetWeaponStats(float bulletSize, float bulletSpread, float bulletProjectals, float bulletPierce, float  bulletBounces, float reloadTime, float magSize)
+    public void SetWeaponStats(float bulletSize, float bulletSpread, float bulletProjectals, float bulletPierce, float  bulletBounces, float reloadTime, float magSize, BaseWeapon weapon)
     {
         this.bulletSize = bulletSize;   
         this.bulletSpread = bulletSpread;
@@ -78,6 +80,7 @@ public class UpgradeManager : MonoBehaviour
         this.bulletBounces = bulletBounces;
         this.reloadTime = reloadTime;
         this.magSize=magSize;
+        this.weapon = weapon;
     }
 
     public void SetPlayerStats(float movementSpeed, float health, float pickupRange)
@@ -98,6 +101,7 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             bulletSize = tempBulletSize;
+            weapon.ChangeBulletSize(tempBulletSize);
         }
     }
 
@@ -112,10 +116,11 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             bulletSpread = tempBulletSpread;
+            weapon.ChangeBulletSpread(tempBulletSpread);
         }
     }
 
-    public void Increase_Bullet_Projectals(float increasePercentage)
+    public void Increase_Bullet_Projectals(int increasePercentage)
     {
         float tempBulletProjectals = ((bulletProjectals / 100) * increasePercentage) + bulletProjectals;
 
@@ -126,6 +131,7 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             bulletProjectals = tempBulletProjectals;
+            weapon.ChangeBulletProjectals((int)tempBulletProjectals);
         }
     }
 
@@ -140,6 +146,7 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             bulletPierce = tempBulletPierce;
+            weapon.ChangeBulletPierce(tempBulletPierce);
         }
     }
 
@@ -156,6 +163,7 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             bulletBounces = tempBulletBounces;
+            weapon.ChangeBulletBounces(tempBulletBounces);
         }
     }
 
@@ -170,6 +178,7 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             reloadTime = tempReloadTime;
+            weapon.ChangeReloadTime(tempReloadTime);
         }
     }
 
@@ -184,6 +193,8 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             magSize = tempIncreaseMagSize;
+            weapon.ChangeMagSize(tempIncreaseMagSize);
+            
         }
     }
 

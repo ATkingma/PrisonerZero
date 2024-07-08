@@ -4,6 +4,11 @@ public class PlayerArm : MonoBehaviour
 {
     [SerializeField] private Transform objectToRotate;
 
+    private void Start()
+    {
+        Instantiate(WeaponManager.Instance.GetWeapon().GetWeaponPrefab(),objectToRotate);
+    }
+
     void Update()
     {
         RotateObject();

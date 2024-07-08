@@ -202,7 +202,60 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &716764104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 716764106}
+  - component: {fileID: 716764105}
+  m_Layer: 0
+  m_Name: Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &716764105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716764104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c895f3f5f34b6d842bca1fc7e01ef884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomCount: 10
+  roomWidth: 10
+  room: {fileID: 964771521455261263, guid: e2f5e1d6328eacc4d93a0c99d9596c4e, type: 3}
+  hallways:
+  - {fileID: 7794421796460342419, guid: 16a86e4f7627733438d7e3a0b493966d, type: 3}
+  - {fileID: 7300962689653454775, guid: c2fecf71a768b4b47991a48337ed58b2, type: 3}
+  - {fileID: 7538090875849570294, guid: 81c6b65535b29e04cba4e74b4b1423d7, type: 3}
+  - {fileID: 6647769954093468987, guid: 7f44565f12d20f54e918d7308b625da2, type: 3}
+--- !u!4 &716764106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716764104}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.034771, y: 3.9417052, z: 18.860313}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

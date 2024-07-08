@@ -207,6 +207,59 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &691842181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 691842183}
+  - component: {fileID: 691842182}
+  m_Layer: 0
+  m_Name: sexy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &691842182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691842181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7349ff1a761c474b9fcaf52da55bf12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemapVisualizer: {fileID: 0}
+  startPosition: {x: 0, y: 0}
+  randomWalkParameters: {fileID: 11400000, guid: 49417390d7b7ea94a86c8c5b5a093317, type: 2}
+  minRoomWidth: 4
+  minRoomHeight: 4
+  dungeonWidth: 20
+  dungeonHeight: 20
+  offset: 1
+  randomWalkRooms: 0
+--- !u!4 &691842183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691842181}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.914431, y: 10.883234, z: 16.671976}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &813543751
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &813543753
 Transform:
   m_ObjectHideFlags: 0
@@ -251,19 +304,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0d96bf8b3601c4eacba07841545a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rooms:
-  - {fileID: 6696615539870736047, guid: 3de8a60b57205474e8af800bf7accde5, type: 3}
-  - {fileID: 6696615539870736047, guid: 9b7d9ff88958fb44d810c2f567664908, type: 3}
-  - {fileID: 6696615539870736047, guid: cf867d368502bc04abb698f01323abd6, type: 3}
-  - {fileID: 6696615539870736047, guid: d3c2f28460073bb439fee34b18f6315c, type: 3}
-  - {fileID: 6696615539870736047, guid: 718feedea87f4ef42a8a7bbd74b341d3, type: 3}
-  - {fileID: 6696615539870736047, guid: 7a1470310d247a842af6fadea6f23ad6, type: 3}
-  - {fileID: 6812724659384595764, guid: 8a60b721aece04f4dac5fe54c0796237, type: 3}
-  minRooms: 64
-  maxRooms: 74
+  roomPrefab: {fileID: 964771521455261263, guid: e2f5e1d6328eacc4d93a0c99d9596c4e, type: 3}
+  rooms: []
+  minRooms: 8
+  maxRooms: 15
   bigRoomSize: 18
   circleRadius: 10
   edgeBringBackChance: 24.5
   seed: 0
   floorSprite: {fileID: 21300000, guid: f09eae8c0ea04254b90c5386a034a225, type: 3}
   tilePrefab: {fileID: 2464169382958617440, guid: beb93e9978cc4e94e828a5057bc25bb9, type: 3}
+--- !u!1 &909311501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 909311503}
+  - component: {fileID: 909311502}
+  m_Layer: 0
+  m_Name: NewGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &909311502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909311501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c895f3f5f34b6d842bca1fc7e01ef884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomCount: 5
+  roomSpacing: 25
+  room: {fileID: 964771521455261263, guid: e2f5e1d6328eacc4d93a0c99d9596c4e, type: 3}
+  hallwaysHorizontal: []
+  hallwaysVertical: []
+--- !u!4 &909311503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909311501}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -7,6 +7,7 @@ using DelaunatorSharp.Unity.Extensions;
 public class RoomGenerator : MonoBehaviour
 {
     // given
+    private GameObject roomPrefab;
     private float circleRadius;
     private List<GameObject> rooms;
     private int bigRoomSize;
@@ -37,8 +38,9 @@ public class RoomGenerator : MonoBehaviour
         return returnList;
     }
 
-    public void Initialize(float circleRadius, List<GameObject> rooms, int bigRoomSize, int minRooms, int maxRooms)
+    public void Initialize(GameObject roomPrefab, float circleRadius, List<GameObject> rooms, int bigRoomSize, int minRooms, int maxRooms)
     {
+        this.roomPrefab = roomPrefab;
         this.circleRadius = circleRadius;
         this.rooms = rooms;
         this.bigRoomSize = bigRoomSize;
@@ -52,45 +54,44 @@ public class RoomGenerator : MonoBehaviour
     {
         randomRoomAmount = Random.Range(minRooms, maxRooms);
 
+        importantRooms = new List<GameObject>();
         for (int i = 0; i < randomRoomAmount; i++)
         {
-            Vector2 randomPos = Random.insideUnitCircle * circleRadius;
-            int randomRoomIndex = Random.Range(0, rooms.Count);
-            GameObject room = Instantiate(rooms[randomRoomIndex], randomPos, Quaternion.identity, transform);
-            roomsList.Add(room);
-
-            room.AddComponent<BoxCollider2D>();
-            room.AddComponent<Rigidbody2D>();
-
-            Rigidbody2D rb = room.GetComponent<Rigidbody2D>();
-            rb.gravityScale = 0;
-            rb.freezeRotation = true;
-            rb.velocity *= 20;
-
-            BoxCollider2D tempBox = room.GetComponent<BoxCollider2D>();
-            Vector2 size = tempBox.bounds.size;
-            float averageExtent = (size.x + size.y) / 2.0f;
-
-            if (averageExtent >= bigRoomSize)
+            bool test = false;
+            Vector3 spawnLocation = Vector3.zero;
+            while (!test)
             {
-                room.GetComponent<SpriteRenderer>().color = Color.red;
-                importantRooms.Add(room);
+                spawnLocation = new Vector3(Random.Range(-randomRoomAmount * 20, randomRoomAmount * 20), Random.Range(-randomRoomAmount * 20, randomRoomAmount * 20), 0);
+                test = !InBoundsOfRoom(spawnLocation);
             }
+
+            GameObject spawnRoom = Instantiate(roomPrefab, spawnLocation, Quaternion.identity);
+            importantRooms.Add(spawnRoom);
         }
 
-        StartCoroutine(Delaunay(5));
+        Delaunay();
     }
 
-    private IEnumerator Delaunay(float delayTime)
+    private bool InBoundsOfRoom(Vector3 position)
     {
-        yield return new WaitForSeconds(delayTime);
+        foreach (GameObject room in importantRooms)
+        {
+            Vector3 roomPosition = room.transform.position;
+            if (position.x >= roomPosition.x - 25 && position.x <= roomPosition.x + 25 &&
+                position.y >= roomPosition.y - 25 && position.y <= roomPosition.y + 25)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    private void Delaunay()
+    {
         List<IPoint> points = new List<IPoint>();
 
         foreach (GameObject obj in importantRooms)
-        {
             points.Add(new Point(obj.transform.position.x, obj.transform.position.y));
-        }
 
         delaunator = new Delaunator(points.ToArray());
 

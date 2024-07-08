@@ -5,6 +5,9 @@ using UnityEngine;
 public class DungeonGenerator : MonoBehaviour
 {
     [SerializeField]
+    private GameObject roomPrefab;
+
+    [SerializeField]
     private List<GameObject> rooms;
 
     [SerializeField]
@@ -51,7 +54,7 @@ public class DungeonGenerator : MonoBehaviour
     {
         GameObject roomGenObject = new("RoomGeneration");
         RoomGenerator roomGenerator = roomGenObject.AddComponent<RoomGenerator>();
-        roomGenerator.Initialize(circleRadius, rooms, bigRoomSize, minRooms, maxRooms);
+        roomGenerator.Initialize(roomPrefab, circleRadius, rooms, bigRoomSize, minRooms, maxRooms);
 
         while (!roomGenerator.DoneGenerating)
             yield return null;

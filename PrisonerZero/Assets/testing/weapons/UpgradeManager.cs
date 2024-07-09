@@ -10,55 +10,52 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField]
     private PlayerMovement pm;
     [Space(10)]
-    [SerializeField]
+
     private float bulletSize;
+
     [SerializeField]
     private float maxBulletSize;
 
-    [SerializeField]
     private float bulletSpread;
     [SerializeField]
     private float maxBulletSpread;
 
-    [SerializeField]
     private float bulletProjectals;
     [SerializeField]
     private float maxBulletProjectals;
 
-    [SerializeField]
     private float bulletPierce;
     [SerializeField]
     private float maxBulletPierce;
 
-    [SerializeField]
     private float bulletBounces;
     [SerializeField]
     private float maxBulletBounces;
 
-    [SerializeField]
     private float reloadTime;
     [SerializeField]
-    private float maxReloadTime;
+    private float minReloadTime;
 
-    [SerializeField]
     private float magSize;
     [SerializeField]
     private float maxMagSize;
 
-    [SerializeField]
     private float movementSpeed;
     [SerializeField]
     private float maxMovementSpeed;
 
-    [SerializeField]
     private float health;
     [SerializeField]
     private float maxHealth;
 
-    [SerializeField]
     private float pickupRange;
     [SerializeField]
     private float maxPickupRange;
+
+    private float fireRate;
+
+    [SerializeField]
+    private float minFireRate;
 
     private void Awake()
     {
@@ -72,7 +69,7 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    public void SetWeaponStats(float bulletSize, float bulletSpread, float bulletProjectals, float bulletPierce, float  bulletBounces, float reloadTime, float magSize, BaseWeapon weapon)
+    public void SetWeaponStats(float bulletSize, float bulletSpread, float bulletProjectals, float bulletPierce, float  bulletBounces, float reloadTime, float magSize,float fireRate, BaseWeapon weapon)
     {
         this.bulletSize = bulletSize;   
         this.bulletSpread = bulletSpread;
@@ -81,6 +78,7 @@ public class UpgradeManager : MonoBehaviour
         this.reloadTime = reloadTime;
         this.magSize=magSize;
         this.weapon = weapon;
+        this.fireRate = fireRate;
     }
 
     public void SetPlayerStats(float movementSpeed, float health, float pickupRange)
@@ -150,8 +148,6 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    // Methods for new upgrades
-
     public void Increase_Bullet_Bounces(float increasePercentage)
     {
         float tempBulletBounces = ((bulletBounces / 100) * increasePercentage) + bulletBounces;
@@ -167,16 +163,18 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    public void Increase_Reload_Time(float increasePercentage)
+    public void Decrease_Reload_Time(float decreasePercentage)
     {
-        float tempReloadTime = ((reloadTime / 100) * increasePercentage) + reloadTime;
+        float tempReloadTime = reloadTime - ((reloadTime / 100) * decreasePercentage);
 
-        if (tempReloadTime >= maxReloadTime)
+        if (tempReloadTime < minReloadTime)
         {
-            // Handle reaching max reload speed
+
         }
         else
         {
+            tempReloadTime = minReloadTime;
+
             reloadTime = tempReloadTime;
             weapon.ChangeReloadTime(tempReloadTime);
         }
@@ -239,6 +237,23 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             pickupRange = tempPickupRange;
+        }
+    }
+
+    public void Increse_Fire_Rate(float decreasePercentage)
+    {
+        float tempFirerate = fireRate - ((fireRate / 100) * decreasePercentage);
+
+        if (tempFirerate < minFireRate)
+        {
+        Debug.Log("t");
+            // Handle reaching max pickup range
+        }
+        else
+        {
+            Debug.Log("t");
+            pickupRange = tempFirerate;
+            weapon.ChangeFireRate(tempFirerate);
         }
     }
 }

@@ -103,10 +103,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrel: {fileID: 7963469984979354784}
   bulletPrefab: {fileID: 7798276232600770399, guid: 93aabddddf5b33f4d8d882bb7c15db72, type: 3}
-  damage: 20
+  damage: 900
   fireRate: 0.25
   bulletVelocity: 20
-  bulletSize: 1
+  bulletSize: 0.2
   bulletSpread: 1
   bulletProjectals: 1
   bulletPierce: 1

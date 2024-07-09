@@ -19,7 +19,6 @@ public class BaseWeapon : MonoBehaviour
 
     public float FireRate => fireRate;
 
-
     [SerializeField]
     private float bulletVelocity;
     [SerializeField]
@@ -50,7 +49,7 @@ public class BaseWeapon : MonoBehaviour
     public virtual void SetWeaponStats()
     {
         BulletObjectPool.Instance.SetBullet(bulletPrefab);
-        UpgradeManager.Instance.SetWeaponStats(bulletSize, bulletSpread, bulletProjectals, bulletPierce, bulletBounces, reloadTime, magSize,this);
+        UpgradeManager.Instance.SetWeaponStats(bulletSize, bulletSpread, bulletProjectals, bulletPierce, bulletBounces, reloadTime, magSize,fireRate,this);
         BulletObjectPool.Instance.ChangeBulletSpeed(bulletVelocity);
         BulletObjectPool.Instance.ChangeBulletSize(bulletSize);
         BulletObjectPool.Instance.ChangeBulletDamage(damage);
@@ -129,11 +128,18 @@ public class BaseWeapon : MonoBehaviour
 
     public void ChangeReloadTime(float tempReloadTime)
     {
-        throw new NotImplementedException();
+        reloadTime = tempReloadTime;    
     }
 
     public void ChangeMagSize(float tempIncreaseMagSize)
     {
-        throw new NotImplementedException();
+        magSize = (int)tempIncreaseMagSize;
+    }
+
+    public void ChangeFireRate(float tempFirerate)
+    {
+        Debug.Log(fireRate);
+        Debug.Log(tempFirerate);
+        fireRate = tempFirerate;
     }
 }

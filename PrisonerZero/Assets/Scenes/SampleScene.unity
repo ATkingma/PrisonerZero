@@ -236,14 +236,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c895f3f5f34b6d842bca1fc7e01ef884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomCount: 10
-  roomWidth: 10
-  room: {fileID: 964771521455261263, guid: e2f5e1d6328eacc4d93a0c99d9596c4e, type: 3}
+  roomCount: 50
+  rooms:
+  - {fileID: 964771521455261263, guid: e2f5e1d6328eacc4d93a0c99d9596c4e, type: 3}
   hallways:
-  - {fileID: 7794421796460342419, guid: 16a86e4f7627733438d7e3a0b493966d, type: 3}
-  - {fileID: 7300962689653454775, guid: c2fecf71a768b4b47991a48337ed58b2, type: 3}
-  - {fileID: 7538090875849570294, guid: 81c6b65535b29e04cba4e74b4b1423d7, type: 3}
   - {fileID: 6647769954093468987, guid: 7f44565f12d20f54e918d7308b625da2, type: 3}
+  - {fileID: 3588932497084864628, guid: d99ba20887b6b064ca84c6e9eeeecb8c, type: 3}
+  - {fileID: 5483773916656926748, guid: 1b057c1f99bd9164bae2f645b0c307ff, type: 3}
+  - {fileID: 5657717952412251227, guid: e67e9858bff08624ab550b3d68181f7b, type: 3}
+  - {fileID: 7538090875849570294, guid: 81c6b65535b29e04cba4e74b4b1423d7, type: 3}
+  - {fileID: 1670088770460483818, guid: 7e26744dd98dc6a4699200c38b79b6ca, type: 3}
+  - {fileID: 7300962689653454775, guid: c2fecf71a768b4b47991a48337ed58b2, type: 3}
+  - {fileID: 7794421796460342419, guid: 16a86e4f7627733438d7e3a0b493966d, type: 3}
+  - {fileID: 6234149076788626415, guid: 65c32f7a1327dfc43b894cbd89299d41, type: 3}
+  - {fileID: 3630768887059659118, guid: 887b6ab7296dc694dbda500c7def50da, type: 3}
+  - {fileID: 6776151339395500178, guid: 9452b3d840b34a943a801257f1ec3897, type: 3}
+  - {fileID: 4398257016394494509, guid: 80bc2263d2fd4a340ab3f22e017dd55e, type: 3}
 --- !u!4 &716764106
 Transform:
   m_ObjectHideFlags: 0
@@ -252,7 +260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716764104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.034771, y: 3.9417052, z: 18.860313}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

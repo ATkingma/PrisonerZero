@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,10 +11,7 @@ public class NewGenerator : MonoBehaviour
     private int roomCount;
 
     [SerializeField]
-    private float roomWidth = 25;
-
-    [SerializeField]
-    private GameObject room;
+    private List<GameObject> rooms;
 
     [SerializeField]
     private List<GameObject> hallways;
@@ -21,115 +20,92 @@ public class NewGenerator : MonoBehaviour
     private List<Hallway> spawnedHallways;
     private int count;
 
-    private void Start()
+
+    private void Update()
     {
-        spawnedRooms = new List<GameObject>();
-        spawnedHallways = new List<Hallway>();
-        StartCoroutine(Generate(Vector2.zero));
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            StopAllCoroutines();
+            foreach (Transform child in transform)
+                Destroy(child.gameObject);
+
+            count = 0;
+            spawnedRooms = new List<GameObject>();
+            spawnedHallways = new List<Hallway>();
+            StartCoroutine(Generate(Vector2.zero));
+        }
     }
 
     private IEnumerator Generate(Vector2 spawnLocation)
     {
-        GameObject spawnRoom = Instantiate(room, spawnLocation, Quaternion.identity);
+        GameObject spawnRoom = Instantiate(rooms[Random.Range(0, rooms.Count)], spawnLocation, Quaternion.identity, transform);
         spawnedRooms.Add(spawnRoom);
 
-        yield return new WaitForSeconds(.1f);
-        StartCoroutine(GenerateHallway(spawnLocation));
+        yield return new WaitForEndOfFrame();
+        StartCoroutine(GenerateHallway(spawnRoom, spawnLocation));
 
-        if (count == roomCount)
+        if (count >= roomCount)
             StopAllCoroutines();
         count++;
     }
 
-    private bool InBoundsOfRoomForRoom(Vector2 position)
+    private IEnumerator GenerateHallway(GameObject origin, Vector2 spawnLocation)
     {
-        foreach (GameObject room in spawnedRooms)
+        for (int i = 0; i < 4; i++)
         {
-            Vector2 roomPosition = room.transform.position;
-            if (position.x >= roomPosition.x - roomWidth &&
-                position.x <= roomPosition.x + roomWidth &&
-                position.y >= roomPosition.y - roomWidth &&
-                position.y <= roomPosition.y + roomWidth)
+            int randomIndex = Random.Range(0, hallways.Count);
+            foreach (Vector2 position in hallways[randomIndex].GetComponent<Hallway>().Positions)
             {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private bool InBoundsHallwayForRoom(Vector2 position)
-    {
-        foreach (Hallway hallway in spawnedHallways)
-        {
-            foreach (Transform transform in hallway.Boundries)
-            {
-                Vector2 hallwayPosition = transform.position;
-                Vector2 hallwayDimension = transform.localScale / 2;
-                if (position.x >= hallwayPosition.x - hallwayDimension.x &&
-                    position.x <= hallwayPosition.x + hallwayDimension.x &&
-                    position.y >= hallwayPosition.y - hallwayDimension.y &&
-                    position.y <= hallwayPosition.y + hallwayDimension.y)
+                if (Random.Range(0, 101) > 0 && !CheckOverlapRoom(spawnLocation, position, origin, hallways[randomIndex]))
                 {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private IEnumerator GenerateHallway(Vector2 spawnLocation)
-    {
-        for (int i = 0; i < hallways.Count; i++)
-        {
-            if (Random.Range(0, 101) > 40)
-            {
-                //spawn hallway
-                if (!InBoundsOfRoomForHallway(hallways[i]) && !InBoundsHallwayForHallway(hallways[i]))
-                {
-                    Hallway newHallway = Instantiate(hallways[i], spawnLocation, Quaternion.identity).GetComponent<Hallway>();
+                    Hallway newHallway = Instantiate(hallways[randomIndex], spawnLocation, Quaternion.identity, transform).GetComponent<Hallway>();
                     spawnedHallways.Add(newHallway);
-                    foreach (Vector2 position in newHallway.Positions)
-                        if (!InBoundsOfRoomForRoom(spawnLocation + position) && !InBoundsHallwayForRoom(spawnLocation + position))
-                            StartCoroutine(Generate(spawnLocation + position));
+                    StartCoroutine(Generate(spawnLocation + position));
                 }
             }
-            yield return new WaitForSeconds(.1f);
+            
+            yield return new WaitForEndOfFrame();
         }
     }
 
-    private bool InBoundsOfRoomForHallway(GameObject hallwayObject)
+    private bool CheckOverlapRoom(Vector2 spawnLocation, Vector2 addedPosition, GameObject origin, GameObject hallwayDimensions)
     {
-        Vector2 position = hallwayObject.transform.position + hallwayObject.transform.GetChild(0).localPosition;
-        foreach (GameObject room in spawnedRooms)
+        List<Collider2D> colliders = new();
+        colliders.AddRange(spawnedRooms.Select(hallway => hallway.GetComponent<Collider2D>())
+                           .ToList());
+        colliders.AddRange(spawnedHallways.SelectMany(hallway => Enumerable.Range(0, hallway.transform.childCount)
+                           .Select(i => hallway.transform.GetChild(i).GetComponent<Collider2D>()))
+                           .ToList());
+
+        List<Transform> boundies = new();
+        boundies.AddRange(origin.GetComponent<Room>().Boundries);
+        boundies.AddRange(hallwayDimensions.GetComponent<Hallway>().Boundries);
+
+        foreach (Collider2D room in colliders)
         {
-            Vector2 roomPosition = room.transform.position;
-            if (position.x >= roomPosition.x - roomWidth &&
-                position.x <= roomPosition.x + roomWidth &&
-                position.y >= roomPosition.y - roomWidth &&
-                position.y <= roomPosition.y + roomWidth)
-            {
+            if (room.gameObject == origin)
+                continue;
+
+            float width = origin.transform.localScale.x / 2;
+            float height = origin.transform.localScale.y / 2;
+            if (room.OverlapPoint(spawnLocation + addedPosition + new Vector2(width, height)) ||
+                room.OverlapPoint(spawnLocation + addedPosition + new Vector2(-width, height)) ||
+                room.OverlapPoint(spawnLocation + addedPosition + new Vector2(width, -height)) ||
+                room.OverlapPoint(spawnLocation + addedPosition + new Vector2(-width, -height)))
                 return true;
-            }
-        }
-        return false;
-    }
 
-    private bool InBoundsHallwayForHallway(GameObject hallwayObject)
-    {
-        Vector2 position = hallwayObject.transform.position + hallwayObject.transform.GetChild(0).localPosition;
-        foreach (Hallway hallway in spawnedHallways)
-        {
-            foreach (Transform transform in hallway.Boundries)
+            foreach (Transform boundry in boundies)
             {
-                Vector2 hallwayPosition = transform.position;
-                Vector2 hallwayDimension = transform.localScale / 2;
-                if (position.x >= hallwayPosition.x - hallwayDimension.x &&
-                    position.x <= hallwayPosition.x + hallwayDimension.x &&
-                    position.y >= hallwayPosition.y - hallwayDimension.y &&
-                    position.y <= hallwayPosition.y + hallwayDimension.y)
-                {
+                float halfX = boundry.transform.localScale.x / 2;
+                float halfY = boundry.transform.localScale.y / 2;
+
+                Vector2 position = spawnLocation + (Vector2)boundry.transform.localPosition;
+
+                if (room.OverlapPoint(position + new Vector2(halfX, halfY)) ||
+                    room.OverlapPoint(position + new Vector2(-halfX, halfY)) ||
+                    room.OverlapPoint(position + new Vector2(halfX, -halfY)) ||
+                    room.OverlapPoint(position + new Vector2(-halfX, -halfY)))
                     return true;
-                }
             }
         }
         return false;

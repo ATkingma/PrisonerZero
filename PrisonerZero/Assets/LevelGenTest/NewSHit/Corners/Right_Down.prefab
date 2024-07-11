@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008639126950460327}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 30, y: 0, z: 0}
+  m_LocalPosition: {x: 20, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -158,8 +158,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f954c6679c9236a4fa17b70264d055af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newSpawnLocations:
-  - {x: 30, y: -30}
+  spawnLocations:
+  - newSpawnLocation: {x: 20, y: -20}
+    direction: 4
   boundries:
   - {fileID: 1892918996413399845}
   - {fileID: 8981308023834438523}
@@ -190,7 +191,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3593903920946595740}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 30, y: -11, z: 0}
+  m_LocalPosition: {x: 20, y: -11, z: 0}
   m_LocalScale: {x: 4, y: 18, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -301,7 +302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8981308023834438520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19, y: 0, z: 0}
+  m_LocalPosition: {x: 9, y: 0, z: 0}
   m_LocalScale: {x: 18, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

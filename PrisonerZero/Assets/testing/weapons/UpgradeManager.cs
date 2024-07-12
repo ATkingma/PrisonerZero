@@ -242,18 +242,16 @@ public class UpgradeManager : MonoBehaviour
 
     public void Increse_Fire_Rate(float decreasePercentage)
     {
-        float tempFirerate = fireRate - ((fireRate / 100) * decreasePercentage);
+        float tempFireRate = fireRate * (1 - decreasePercentage / 100f);
 
-        if (tempFirerate < minFireRate)
+        if (tempFireRate < minFireRate)
         {
-        Debug.Log("t");
-            // Handle reaching max pickup range
+            weapon.ChangeFireRate(minFireRate);
         }
         else
         {
-            Debug.Log("t");
-            pickupRange = tempFirerate;
-            weapon.ChangeFireRate(tempFirerate);
+            fireRate = tempFireRate;
+            weapon.ChangeFireRate(tempFireRate);
         }
     }
 }

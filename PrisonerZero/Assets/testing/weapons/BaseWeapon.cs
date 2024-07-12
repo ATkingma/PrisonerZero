@@ -138,8 +138,6 @@ public class BaseWeapon : MonoBehaviour
 
     public void ChangeFireRate(float tempFirerate)
     {
-        Debug.Log(fireRate);
-        Debug.Log(tempFirerate);
         fireRate = tempFirerate;
     }
 }

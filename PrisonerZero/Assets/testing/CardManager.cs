@@ -56,4 +56,12 @@ public class CardManager : MonoBehaviour
 
         return null;
     }
+
+    public void DisableCards()
+    {
+        foreach (var card in cards)
+        {
+            card.gameObject.SetActive(false);
+        }
+    }
 }

@@ -40,6 +40,7 @@ public class UiManager : MonoBehaviour
     public void CloseLevelUpMenu()
     {
         cardManager.gameObject.SetActive(false);
+        cardManager.DisableCards();
         GameTimeManager.Instance.ResetTimeSCale();
     }
 }

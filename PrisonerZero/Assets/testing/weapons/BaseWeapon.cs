@@ -5,6 +5,9 @@ using UnityEngine.Pool;
 
 public class BaseWeapon : MonoBehaviour
 {
+    public static BaseWeapon Instance => instance;
+    private static BaseWeapon instance; 
+
     [SerializeField]
     private Transform barrel;
     [SerializeField]
@@ -29,8 +32,12 @@ public class BaseWeapon : MonoBehaviour
     private int bulletProjectals;
     [SerializeField]
     private int bulletPierce;
+
+    public int BulletPierce => bulletPierce;
     [SerializeField]
     private int bulletBounces;
+    public int BulletBounces => bulletBounces;  
+
     [SerializeField]
     private float reloadTime;
     [SerializeField]
@@ -39,6 +46,15 @@ public class BaseWeapon : MonoBehaviour
 
     private int currentMag;
     private bool reloading = false;
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(instance);
+        }
+        instance = this;
+    }
 
     private void Start()
     {
@@ -65,20 +81,43 @@ public class BaseWeapon : MonoBehaviour
             return;
         }
 
-        if (currentMag <= 0)
+        if (currentMag < bulletProjectals)
         {
             StartCoroutine(Reload());
             return;
         }
 
- 
+        // Shoot the middle projectile first
+        ShootBullet(barrel.rotation);
+
+        for (int i = 1; i <= bulletProjectals / 2; i++)
+        {
+            // Calculate spread angle
+            float spreadAngle = i * bulletSpread;
+
+            // Shoot projectile with spread above
+            if (i * 2 - 1 < bulletProjectals)
+            {
+                ShootBullet(barrel.rotation * Quaternion.Euler(0, 0, spreadAngle));
+            }
+
+            // Shoot projectile with spread below
+            if (i * 2 < bulletProjectals)
+            {
+                ShootBullet(barrel.rotation * Quaternion.Euler(0, 0, -spreadAngle));
+            }
+        }
+    }
+
+    private void ShootBullet(Quaternion rotation)
+    {
         GameObject bullet = BulletObjectPool.Instance.GetPooledObject();
         if (bullet != null)
         {
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.position = barrel.transform.position;
             bullet.transform.position = barrel.position;
-            bullet.transform.rotation = barrel.rotation;
+            bullet.transform.rotation = rotation;
             bullet.SetActive(true);
             currentMag--;
         }
@@ -86,10 +125,9 @@ public class BaseWeapon : MonoBehaviour
         if (currentMag <= 0)
         {
             StartCoroutine(Reload());
-            return;
         }
-        
     }
+
 
 
     public IEnumerator Reload()

@@ -87,21 +87,17 @@ public class BaseWeapon : MonoBehaviour
             return;
         }
 
-        // Shoot the middle projectile first
         ShootBullet(barrel.rotation);
 
         for (int i = 1; i <= bulletProjectals / 2; i++)
         {
-            // Calculate spread angle
             float spreadAngle = i * bulletSpread;
 
-            // Shoot projectile with spread above
             if (i * 2 - 1 < bulletProjectals)
             {
                 ShootBullet(barrel.rotation * Quaternion.Euler(0, 0, spreadAngle));
             }
 
-            // Shoot projectile with spread below
             if (i * 2 < bulletProjectals)
             {
                 ShootBullet(barrel.rotation * Quaternion.Euler(0, 0, -spreadAngle));

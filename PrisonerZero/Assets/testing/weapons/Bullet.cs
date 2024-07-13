@@ -32,21 +32,14 @@ public class Bullet : MonoBehaviour
                 ResetBullet();
             }
         }
+        else if (_hitInfo.GetComponent<XpPickup>()){}
         else
         {
             if (currentBounces > 0)
             {
-                ResetBullet();
-                Debug.Log(_hitInfo.gameObject.name);
                 currentBounces--;
-                List<ContactPoint2D> contacts = new List<ContactPoint2D>();
-                _hitInfo.GetContacts(contacts);
-                if (contacts.Count > 0)
-                {
-                    Vector2 reflectDir = Vector2.Reflect(rb.velocity, contacts[0].normal);
-                    rb.velocity = reflectDir.normalized * speed;
-                    Debug.Log("bounce");
-                }
+
+                rb.velocity *=-1.1f;
             }
             else
             {

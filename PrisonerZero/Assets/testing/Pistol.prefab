@@ -109,8 +109,8 @@ MonoBehaviour:
   bulletSize: 0.2
   bulletSpread: 1
   bulletProjectals: 1
-  bulletPierce: 1
-  bulletBounces: 6
+  bulletPierce: 0
+  bulletBounces: 0
   reloadTime: 1
   magSize: 20
 --- !u!1 &7963469984485557035

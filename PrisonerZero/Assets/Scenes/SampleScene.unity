@@ -123,6 +123,60 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &114504473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 114504475}
+  - component: {fileID: 114504474}
+  m_Layer: 0
+  m_Name: test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &114504474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114504473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f633096a6a5d9a7469f18aa00be1246a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRoom: {fileID: 0}
+  bossRoom: {fileID: 0}
+  roomList:
+  - {fileID: 964771521455261263, guid: e2f5e1d6328eacc4d93a0c99d9596c4e, type: 3}
+  hallwayList:
+  - {fileID: 7538090875849570294, guid: 81c6b65535b29e04cba4e74b4b1423d7, type: 3}
+  - {fileID: 5483773916656926748, guid: 1b057c1f99bd9164bae2f645b0c307ff, type: 3}
+  - {fileID: 7300962689653454775, guid: c2fecf71a768b4b47991a48337ed58b2, type: 3}
+  - {fileID: 7794421796460342419, guid: 16a86e4f7627733438d7e3a0b493966d, type: 3}
+  maxRooms: 5
+--- !u!4 &114504475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114504473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &716764105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,10 +290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c895f3f5f34b6d842bca1fc7e01ef884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomCount: 50
+  roomCount: 10
   rooms:
   - {fileID: 964771521455261263, guid: e2f5e1d6328eacc4d93a0c99d9596c4e, type: 3}
-  - {fileID: 964771521455261263, guid: f8d4ff4760c2a954b8f66d5112cb3c0c, type: 3}
   hallways:
   - {fileID: 5483773916656926748, guid: 1b057c1f99bd9164bae2f645b0c307ff, type: 3}
   - {fileID: 7538090875849570294, guid: 81c6b65535b29e04cba4e74b4b1423d7, type: 3}

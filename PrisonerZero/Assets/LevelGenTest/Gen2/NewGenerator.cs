@@ -73,7 +73,7 @@ public class NewGenerator : MonoBehaviour
 
             for (int i = 0; i < 4; i++)
             {
-                yield return new WaitForSeconds(.1f);
+                yield return new WaitForEndOfFrame();
 
                 if (count < roomCount - 1)
                 {

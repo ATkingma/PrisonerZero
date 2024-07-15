@@ -5,6 +5,7 @@ using System.Linq;
 using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.FilePathAttribute;
 
 public class DungeonGenerator : MonoBehaviour
 {
@@ -26,24 +27,14 @@ public class DungeonGenerator : MonoBehaviour
 
     private List<SpawnInformation> placementQueue = new();
     private List<Collider2D> spawnedObjects;
+    private List<Hallway> spawnedHallways = new();
+
+    private bool spawnedBossRoom = false;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-        {
-            placementQueue = new();
-            spawnedObjects = new();
-
-            currentRooms = 0;
-            foreach (Transform child in transform)
-                Destroy(child.gameObject);
-
-            GameObject randomRoom = roomList[UnityEngine.Random.Range(0, roomList.Count)];
-            Vector2 spawnlocation = Vector2.zero;
-
-            if(!CheckRoomPlacement(spawnlocation, randomRoom.transform.localScale))
-                placementQueue.Add(new SpawnInformation(spawnlocation, randomRoom));
-        }
+            StartGeneration();
 
         if (placementQueue.Count > 0)
         {
@@ -51,7 +42,33 @@ public class DungeonGenerator : MonoBehaviour
                 Rooms();
             else if (placementQueue[0].objectToSpawn.CompareTag("Hallway"))
                 Hallways();
+            else if (placementQueue[0].objectToSpawn.CompareTag("BossRoom"))
+                BossRoom();
+
         }
+        else if(spawnedHallways.Count > 0)
+        {
+            if (!spawnedBossRoom)
+                StartGeneration();
+
+            CheckHallwayPlacement();
+        }
+    }
+
+    public void StartGeneration()
+    {
+        spawnedBossRoom = false;
+        placementQueue = new();
+        spawnedObjects = new();
+        spawnedHallways = new();
+
+        currentRooms = 0;
+        foreach (Transform child in transform)
+            Destroy(child.gameObject);
+
+
+        if (!CheckRoomPlacement(Vector2.zero, spawnRoom.transform.localScale))
+            placementQueue.Add(new SpawnInformation(Vector2.zero, spawnRoom));
     }
 
     private void Rooms()
@@ -62,12 +79,25 @@ public class DungeonGenerator : MonoBehaviour
             placementQueue.RemoveAt(0);
 
             if(currentRooms < maxRooms)
-                for (int i = 0; i < 2; ++i)
+                for (int i = 0; i < 4; ++i)
                     MakeHallway(spawnedObject);
         }
         else
         {
             placementQueue.RemoveAt(0);
+        }
+    }
+
+    private void BossRoom()
+    {
+        if (!CheckRoomPlacement(placementQueue[0].spawnlocation, placementQueue[0].objectToSpawn.transform.localScale))
+        {
+            Transform spawnedObject = SpawnObject(placementQueue[0]);
+            placementQueue.RemoveAt(0);
+        }
+        else
+        {
+            StartGeneration();
         }
     }
 
@@ -129,16 +159,22 @@ public class DungeonGenerator : MonoBehaviour
         {
             spawnedObjects.Add(spawned.GetComponent<Collider2D>());
         }
-        else if(spawned.CompareTag("Room"))
+        else if(spawned.CompareTag("Hallway"))
         {
-
+            //add childs to spawnedObects;
+            spawnedHallways.Add(spawned.GetComponent<Hallway>());
         }
-
         return spawned;
     }
 
     private void MakeRoom(Transform spawnedHallway)
     {
+        if (currentRooms >= maxRooms && !spawnedBossRoom)
+        {
+            SpawnBossRoom(spawnedHallway);
+            return;
+        }
+
         GameObject randomRoom = roomList[UnityEngine.Random.Range(0, roomList.Count)];
         Vector2 localScale = randomRoom.transform.localScale;
         float halfWidth = localScale.x / 2;
@@ -150,17 +186,20 @@ public class DungeonGenerator : MonoBehaviour
         Vector2 rightSpawnlocation = (Vector2)spawnedHallway.position + component.Positions[0].newSpawnLocation + new Vector2(halfWidth, 0);
         Vector2 upSpawnlocation = (Vector2)spawnedHallway.position + component.Positions[0].newSpawnLocation + new Vector2(0, halfHeight);
         Vector2 downSpawnlocation = (Vector2)spawnedHallway.position + component.Positions[0].newSpawnLocation + new Vector2(0, -halfHeight);
+        Vector2 location = Vector2.zero;
 
         if (component.Positions[0].direction == SpawnDirection.Left && !CheckRoomPlacement(leftSpawnlocation, localScale))
-            placementQueue.Add(new SpawnInformation(leftSpawnlocation, randomRoom));
+            location = leftSpawnlocation;
         else if (component.Positions[0].direction == SpawnDirection.Right && !CheckRoomPlacement(rightSpawnlocation, localScale))
-            placementQueue.Add(new SpawnInformation(rightSpawnlocation, randomRoom));
+            location = rightSpawnlocation;
         else if (component.Positions[0].direction == SpawnDirection.Up && !CheckRoomPlacement(upSpawnlocation, localScale))
-            placementQueue.Add(new SpawnInformation(upSpawnlocation, randomRoom));
+            location = upSpawnlocation;
         else if (component.Positions[0].direction == SpawnDirection.Down && !CheckRoomPlacement(downSpawnlocation, localScale))
-            placementQueue.Add(new SpawnInformation(downSpawnlocation, randomRoom));
+            location = downSpawnlocation;
         else
             currentRooms--;
+
+        placementQueue.Add(new SpawnInformation(location, randomRoom));
         currentRooms++;
     }
 
@@ -196,7 +235,46 @@ public class DungeonGenerator : MonoBehaviour
             placementQueue.Add(new SpawnInformation(downSpawnlocation, newHallway));
     }
 
+    private void SpawnBossRoom(Transform spawnedHallway)
+    {
+        spawnedBossRoom = true;
+        Vector2 localScale = bossRoom.transform.localScale;
+        float halfWidth = localScale.x / 2;
+        float halfHeight = localScale.y / 2;
+
+        Hallway component = spawnedHallway.GetComponent<Hallway>();
+
+        Vector2 leftSpawnlocation = (Vector2)spawnedHallway.position + component.Positions[0].newSpawnLocation + new Vector2(-halfWidth, 0);
+        Vector2 rightSpawnlocation = (Vector2)spawnedHallway.position + component.Positions[0].newSpawnLocation + new Vector2(halfWidth, 0);
+        Vector2 upSpawnlocation = (Vector2)spawnedHallway.position + component.Positions[0].newSpawnLocation + new Vector2(0, halfHeight);
+        Vector2 downSpawnlocation = (Vector2)spawnedHallway.position + component.Positions[0].newSpawnLocation + new Vector2(0, -halfHeight);
+        Vector2 location = Vector2.zero;
+
+        if (component.Positions[0].direction == SpawnDirection.Left && !CheckRoomPlacement(leftSpawnlocation, localScale))
+            location = leftSpawnlocation;
+        else if (component.Positions[0].direction == SpawnDirection.Right && !CheckRoomPlacement(rightSpawnlocation, localScale))
+            location = rightSpawnlocation;
+        else if (component.Positions[0].direction == SpawnDirection.Up && !CheckRoomPlacement(upSpawnlocation, localScale))
+            location = upSpawnlocation;
+        else if (component.Positions[0].direction == SpawnDirection.Down && !CheckRoomPlacement(downSpawnlocation, localScale))
+            location = downSpawnlocation;
+        else
+            currentRooms--;
+
+        placementQueue.Add(new SpawnInformation(location, bossRoom));
+    }
+
     private bool CheckRoomPlacement(Vector2 location, Vector2 size) => Physics2D.OverlapAreaAll(location - (size / 2 * .9f), location + (size / 2 * .9f)).Length > 0;
+
+    private void CheckHallwayPlacement()
+    {
+        spawnedHallways.RemoveAll(x => x == null);
+        foreach (Hallway item in spawnedHallways)
+            if (!CheckRoomPlacement(item.startCheck.position, Vector2.one) || !CheckRoomPlacement(item.exitCheck.position, Vector2.one))
+                Destroy(item.gameObject);
+
+        spawnedHallways = new();
+    }
 }
 
 [Serializable]

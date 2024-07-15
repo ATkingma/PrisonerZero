@@ -15,6 +15,9 @@ public class Hallway : MonoBehaviour
     public List<SpawnInfo> Positions => spawnLocations;
 
     public List<Transform> Boundries => boundries;
+
+    public Transform startCheck; 
+    public Transform exitCheck; 
 }
 
 [Serializable]

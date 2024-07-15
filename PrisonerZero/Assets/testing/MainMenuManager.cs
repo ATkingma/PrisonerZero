@@ -17,6 +17,21 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject selectGamePanel;
 
+    [SerializeField]
+    private GameObject upgradePanel;
+
+    [SerializeField]
+    private GameObject optionsPanel;
+
+    [SerializeField]
+    private GameObject creditsPanel;
+
+    [SerializeField]
+    private GameObject languagePanel;
+
+    [SerializeField]
+    private GameObject noviceTreePanel;
+
     private void Start()
     {
         SwitchPanel("main");
@@ -28,6 +43,11 @@ public class MainMenuManager : MonoBehaviour
         characterPanel.SetActive(false);
         weaponPanel.SetActive(false);
         selectGamePanel.SetActive(false);
+        upgradePanel.SetActive(false);
+        optionsPanel.SetActive(false);
+        creditsPanel.SetActive(false);
+        languagePanel.SetActive(false);
+        noviceTreePanel.SetActive(false);
     }
 
     private void EnableMainPanel()
@@ -54,6 +74,36 @@ public class MainMenuManager : MonoBehaviour
         selectGamePanel.SetActive(true);
     }
 
+    public void EnableUpgradePanel()
+    {
+        ResetAll();
+        upgradePanel.SetActive(true);
+    }
+
+    public void EnableOptionsPanel()
+    {
+        ResetAll();
+        optionsPanel.SetActive(true);
+    }
+
+    public void EnableCreditsPanell()
+    {
+        ResetAll();
+        creditsPanel.SetActive(true);
+    }
+
+    public void EnableLanguagePanel()
+    {
+        ResetAll();
+        languagePanel.SetActive(true);
+    }
+
+    public void EnableNoviceTreePanel()
+    {
+        ResetAll();
+        noviceTreePanel.SetActive(true);
+    }
+
     public void SwitchPanel(string panelName)
     {
         ResetAll();
@@ -71,11 +121,27 @@ public class MainMenuManager : MonoBehaviour
             case "selectGame":
                 EnableSelectGamePanel();
                 break;
+            case "credits":
+                EnableCreditsPanell();
+                break;
+            case "options":
+                EnableOptionsPanel();
+                break;
+            case "language":
+                EnableLanguagePanel();
+                break;
+            case "upgrade":
+                EnableUpgradePanel();
+                break;
+            case "noviceTree":
+                EnableNoviceTreePanel();
+                break;
             case "reset":
                 ResetAll();
                 break;
             default:
                 Debug.LogWarning("Panel not found: " + panelName);
+                SwitchPanel("main");
                 break;
         }
     }

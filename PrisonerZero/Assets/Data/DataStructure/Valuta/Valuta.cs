@@ -1,26 +1,57 @@
 using System;
+using UnityEngine;
 
 [Serializable]
 public class Valuta
 {
-    public int SoulFragements { get; private set; }
-    public int DevineTokens { get; private set; }
-    public int AscensionTokens { get; private set; }
-    public int PrestigeTokens { get; private set; }
-    public int ValorTokens { get; private set; }
-    public int EtherealTokens { get; private set; }
-    public int PhoenixTokens { get; private set; }
-    public int InfinityTokens { get; private set; }
+    [SerializeField]
+    private int soulFragments;
+    [SerializeField]
+    private int devineTokens;
+    [SerializeField]
+    private int ascensionTokens;
+    [SerializeField]
+    private int prestigeTokens;
+    [SerializeField]
+    private int valorTokens;
+    [SerializeField]
+    private int etherealTokens;
+    [SerializeField]
+    private int phoenixTokens;
+    [SerializeField]
+    private int infinityTokens;
 
-    public Valuta(int soulFragments, int devineTokens, int ascensionTokens,int prestigeTokens, int valorTokens, int etherealTokens,int phoenixTokens, int infinityTokens)
+    public int SoulFragments => soulFragments;
+    public int DevineTokens => devineTokens;
+    public int AscensionTokens => ascensionTokens;
+    public int PrestigeTokens => prestigeTokens;
+    public int ValorTokens => valorTokens;
+    public int EtherealTokens => etherealTokens;
+    public int PhoenixTokens => phoenixTokens;
+    public int InfinityTokens => infinityTokens;
+
+    public Valuta(int soulFragments, int devineTokens, int ascensionTokens, int prestigeTokens,
+                  int valorTokens, int etherealTokens, int phoenixTokens, int infinityTokens)
     {
-        SoulFragements = soulFragments;
-        DevineTokens = devineTokens;
-        AscensionTokens = ascensionTokens;
-        PrestigeTokens = prestigeTokens;
-        ValorTokens = valorTokens;
-        EtherealTokens = etherealTokens;
-        PhoenixTokens = phoenixTokens;
-        InfinityTokens = infinityTokens;
+        this.soulFragments = soulFragments;
+        this.devineTokens = devineTokens;
+        this.ascensionTokens = ascensionTokens;
+        this.prestigeTokens = prestigeTokens;
+        this.valorTokens = valorTokens;
+        this.etherealTokens = etherealTokens;
+        this.phoenixTokens = phoenixTokens;
+        this.infinityTokens = infinityTokens;
     }
+}
+[Serializable]
+public enum Valutas
+{
+    SoulFragments,
+    DevineTokens,
+    AscensionTokens,
+    PrestigeTokens,
+    ValorTokens,
+    EtherealTokens,
+    PhoenixTokens,
+    InfinityTokens,
 }

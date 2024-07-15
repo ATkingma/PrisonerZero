@@ -1,15 +1,29 @@
 using System;
+using UnityEditor;
+using UnityEngine;
 
 [Serializable]
 public class PlayerData
 {
-    public Valuta Valuta { get; private set; }
-    public PlayerSettings PlayerSettings { get; private set; }
-    public SkillTree SkillTree { get; private set; }
-    public NoviceTree NoviceTree { get; private set; }
+    public PlayerData()
+    {
+        valuta = new Valuta(69,0,0,0,0,0,0,0);
+        playerSettings = new PlayerSettings();
+        skillTree = new SkillTreeData();
+    }
+
+    public Valuta Valuta => valuta;
+    [SerializeField]
+    private Valuta valuta;
+    public PlayerSettings PlayerSettings => playerSettings;
+    [SerializeField]
+    private PlayerSettings playerSettings;
+    public SkillTreeData SkillTree => skillTree;
+    [SerializeField]
+    private SkillTreeData skillTree;
 
     public void SetValuta(Valuta newValuta)
     {
-        Valuta = newValuta; 
+        valuta = newValuta; 
     }
 }

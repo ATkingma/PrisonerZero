@@ -161,7 +161,7 @@ MonoBehaviour:
   - {fileID: 5483773916656926748, guid: 1b057c1f99bd9164bae2f645b0c307ff, type: 3}
   - {fileID: 7300962689653454775, guid: c2fecf71a768b4b47991a48337ed58b2, type: 3}
   - {fileID: 7794421796460342419, guid: 16a86e4f7627733438d7e3a0b493966d, type: 3}
-  maxRooms: 5
+  maxRooms: 10
 --- !u!4 &114504475
 Transform:
   m_ObjectHideFlags: 0

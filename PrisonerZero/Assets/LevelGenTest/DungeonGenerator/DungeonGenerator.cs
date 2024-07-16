@@ -16,6 +16,9 @@ public class DungeonGenerator : MonoBehaviour
     private GameObject bossRoom;
 
     [SerializeField]
+    private GameObject wallTile;
+
+    [SerializeField]
     private List<GameObject> roomList;
 
     [SerializeField]
@@ -26,7 +29,7 @@ public class DungeonGenerator : MonoBehaviour
     private int currentRooms = 1000000;
 
     private List<SpawnInformation> placementQueue = new();
-    private List<Collider2D> spawnedObjects;
+    private List<Transform> spawnedObjects;
     private List<Hallway> spawnedHallways = new();
 
     private bool spawnedBossRoom = false;
@@ -51,6 +54,7 @@ public class DungeonGenerator : MonoBehaviour
             if (!spawnedBossRoom)
                 StartGeneration();
 
+            SpawnWalls();
             CheckHallwayPlacement();
         }
     }
@@ -155,13 +159,15 @@ public class DungeonGenerator : MonoBehaviour
     private Transform SpawnObject(SpawnInformation spawnInformation)
     {
         Transform spawned = Instantiate(spawnInformation.objectToSpawn, spawnInformation.spawnlocation, Quaternion.identity, transform).transform;
-        if(spawned.CompareTag("Room"))
+        if(spawned.CompareTag("Room") || spawned.CompareTag("BossRoom"))
         {
-            spawnedObjects.Add(spawned.GetComponent<Collider2D>());
+            spawnedObjects.Add(spawned);
         }
         else if(spawned.CompareTag("Hallway"))
         {
-            //add childs to spawnedObects;
+            foreach (Transform child in spawned)
+                spawnedObjects.Add(child);
+
             spawnedHallways.Add(spawned.GetComponent<Hallway>());
         }
         return spawned;
@@ -274,6 +280,41 @@ public class DungeonGenerator : MonoBehaviour
                 Destroy(item.gameObject);
 
         spawnedHallways = new();
+    }
+
+    private void SpawnWalls()
+    {
+        foreach (Transform obj in spawnedObjects)
+        {
+            float x = obj.localScale.x / 2 + .5f;
+            float y = obj.localScale.y / 2 + .5f;
+            Vector2 topLeft = obj.position + new Vector3(-x, y);
+            Vector2 topRight = obj.position + new Vector3(x, y);
+            Vector2 bottomLeft = obj.position + new Vector3(-x, -y);
+            Vector2 bottomRight = obj.position + new Vector3(x, -y);
+
+            DrawWallLine(topLeft, topRight, obj);
+            DrawWallLine(topRight, bottomRight, obj);
+            DrawWallLine(bottomRight, bottomLeft, obj);
+            DrawWallLine(bottomLeft, topLeft, obj);
+        }
+    }
+
+    private void DrawWallLine(Vector2 start, Vector2 end, Transform parent)
+    {
+        Vector2 direction = (end - start).normalized;
+        float distance = Vector2.Distance(start, end);
+        int numberOfSquares = Mathf.CeilToInt(distance);
+
+        for (int i = 0; i <= numberOfSquares; i++)
+        {
+            Vector2 position = start + direction * i;
+            if(!CheckRoomPlacement(position, wallTile.transform.localScale))
+            {
+                Transform spawned = Instantiate(wallTile, position, Quaternion.identity, parent).transform;
+                spawned.localScale = new Vector2(1 / parent.localScale.x, 1 / parent.localScale.y);
+            }
+        }
     }
 }
 

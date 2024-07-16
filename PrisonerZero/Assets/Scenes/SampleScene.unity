@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnRoom: {fileID: 8787449784315948559, guid: dcaeadf685950364ebdb22064b995ba2, type: 3}
   bossRoom: {fileID: 819161102460752282, guid: 294982749e63ff14f9c14cb0e7f800bc, type: 3}
+  wallTile: {fileID: 5650604725480517087, guid: 8cf8e9e49fe2eba4f9e8edc0f42771b8, type: 3}
   roomList:
   - {fileID: 964771521455261263, guid: e2f5e1d6328eacc4d93a0c99d9596c4e, type: 3}
   - {fileID: 964771521455261263, guid: f8d4ff4760c2a954b8f66d5112cb3c0c, type: 3}

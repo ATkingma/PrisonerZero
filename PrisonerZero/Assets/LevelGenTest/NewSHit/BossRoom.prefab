@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9186239520681252404}
   - component: {fileID: 6927492678734610788}
   - component: {fileID: 8475809107913737733}
-  - component: {fileID: 7651789439682830920}
   m_Layer: 0
   m_Name: BossRoom
   m_TagString: BossRoom
@@ -112,17 +111,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7651789439682830920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819161102460752282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7d53e730ab306440a98cd1df509110f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boundries:
-  - {fileID: 9186239520681252404}

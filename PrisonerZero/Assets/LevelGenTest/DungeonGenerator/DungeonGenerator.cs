@@ -29,6 +29,7 @@ public class DungeonGenerator : MonoBehaviour
     private List<SpawnInformation> placementQueue = new();
     private List<Transform> spawnedObjects;
     private List<Hallway> spawnedHallways = new();
+    private List<Collider2D> wallColliders = new();
 
     private bool spawnedBossRoom = false;
 
@@ -51,7 +52,13 @@ public class DungeonGenerator : MonoBehaviour
         }
         else if(spawnedHallways.Count > 0)
         {
-            EndGeneration();
+            if (!spawnedBossRoom)
+                StartGeneration();
+
+            SpawnWalls();
+            CheckHallwayPlacement();
+            ManageColliders();
+
         }
     }
 
@@ -78,7 +85,7 @@ public class DungeonGenerator : MonoBehaviour
 
         SpawnWalls();
         CheckHallwayPlacement();
-        RemoveColliders();
+        ManageColliders();
 
         OnDoneGenerating?.Invoke();
     }
@@ -317,18 +324,23 @@ public class DungeonGenerator : MonoBehaviour
         for (int i = 0; i <= numberOfSquares; i++)
         {
             Vector2 position = start + direction * i;
-            if(!CheckRoomPlacement(position, wallTile.transform.localScale))
+            if(!CheckRoomPlacement(position, new Vector2(.1f,.1f)))
             {
                 Transform spawned = Instantiate(wallTile, position, Quaternion.identity, parent).transform;
                 spawned.localScale = new Vector2(1 / parent.localScale.x, 1 / parent.localScale.y);
+                wallColliders.Add(spawned.GetComponent<Collider2D>());
             }
         }
     }
 
-    private void RemoveColliders()
+    private void ManageColliders()
     {
         foreach (Transform item in spawnedObjects)
             Destroy(item.GetComponent<Collider2D>());
+
+        // colliders on walls
+        foreach (Collider2D item in wallColliders)
+            item.enabled = true;
     }
 }
 

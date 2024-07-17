@@ -98,6 +98,7 @@ public class BaseWeapon : MonoBehaviour
                 ShootBullet(barrel.rotation * Quaternion.Euler(0, 0, spreadAngle));
             }
 
+
             if (i * 2 < bulletProjectals)
             {
                 ShootBullet(barrel.rotation * Quaternion.Euler(0, 0, -spreadAngle));

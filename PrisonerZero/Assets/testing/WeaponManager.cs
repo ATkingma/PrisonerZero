@@ -13,7 +13,7 @@ public class WeaponManager : MonoBehaviour
 
     private WeaponData selectedWeapon;
 
-    public WeaponData SelectedWeapon=>selectedWeapon;
+    public WeaponData SelectedWeapon =>selectedWeapon;
 
     private void Awake()
     {

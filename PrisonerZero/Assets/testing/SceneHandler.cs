@@ -6,6 +6,14 @@ public class SceneHandler : MonoBehaviour
 {
     public static SceneHandler Instance => instance;
     private static SceneHandler instance;
+
+    [SerializeField]
+    private GameObject player;
+
+    [SerializeField]
+    private DungeonGenerator generator;
+
+
     private void Awake()
     {
         if (instance != null)
@@ -22,6 +30,11 @@ public class SceneHandler : MonoBehaviour
         {
             skilltree.GiveBuffs();
         }
+
+        player.SetActive(false);
+        player.transform.position = Vector3.zero;
+
+        generator.StartGeneration();
     }
 
     public void PlayerDied()
@@ -30,5 +43,10 @@ public class SceneHandler : MonoBehaviour
         {
             SkillTree.SkillTreeList[i].ClearSkillTree();
         }
+    }
+
+    public void EnablePlayer()
+    {
+        player.SetActive (true);
     }
 }

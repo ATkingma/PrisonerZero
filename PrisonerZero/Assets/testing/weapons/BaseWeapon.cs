@@ -80,7 +80,6 @@ public class BaseWeapon : MonoBehaviour
         {
             return;
         }
-
         if (currentMag < bulletProjectals)
         {
             StartCoroutine(Reload());

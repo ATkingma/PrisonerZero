@@ -5,13 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/testing/Initalize.unity
-    guid: e850789c85784554f9dcfae332cc45e1
+    path: Assets/Scenes/Initalize.unity
+    guid: b9d127027fd106045ab68c1e200a6da0
   - enabled: 1
-    path: Assets/testing/Main menu.unity
+    path: Assets/Scenes/Main menu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/testing/PlayerTest.unity
+    path: Assets/Scenes/Level scene.unity
     guid: c5a3c826c9ce0a84ea72a461a3d4d2e6
   m_configObjects: {}

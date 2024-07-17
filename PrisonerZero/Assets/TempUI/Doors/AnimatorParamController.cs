@@ -15,17 +15,20 @@ public class AnimatorParamController : MonoBehaviour
 
     private void Start()
     {
-        SetAnimValue(startingValue);
+        if (this.isActiveAndEnabled)
+            SetAnimValue(startingValue);
     }
 
     public void SetAnimValue(int _newValue)
     {
-        anim.SetInteger(name, _newValue);   
+        if (this.isActiveAndEnabled)
+            anim.SetInteger(name, _newValue);   
     }
 
     public void SetAnimValueDelayed(int value)
     {
-        StartCoroutine(DelayedValueSet(value));
+        if(this.isActiveAndEnabled)
+            StartCoroutine(DelayedValueSet(value));
     }
 
     IEnumerator DelayedValueSet(int value)

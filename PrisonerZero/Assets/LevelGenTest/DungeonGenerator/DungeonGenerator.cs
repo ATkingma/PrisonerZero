@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using TreeEditor;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
+using UnityEngine.Events;
 
 public class DungeonGenerator : MonoBehaviour
 {
@@ -25,14 +22,17 @@ public class DungeonGenerator : MonoBehaviour
     private List<GameObject> hallwayList;
 
     [SerializeField]
-    private int maxRooms;
-    private int currentRooms = 1000000;
+    private int maxRooms = 10;
+
+    private int currentRooms = 100000;
 
     private List<SpawnInformation> placementQueue = new();
     private List<Transform> spawnedObjects;
     private List<Hallway> spawnedHallways = new();
 
     private bool spawnedBossRoom = false;
+
+    public UnityEvent OnDoneGenerating;
 
     private void Update()
     {
@@ -51,11 +51,7 @@ public class DungeonGenerator : MonoBehaviour
         }
         else if(spawnedHallways.Count > 0)
         {
-            if (!spawnedBossRoom)
-                StartGeneration();
-
-            SpawnWalls();
-            CheckHallwayPlacement();
+            EndGeneration();
         }
     }
 
@@ -73,6 +69,18 @@ public class DungeonGenerator : MonoBehaviour
 
         if (!CheckRoomPlacement(Vector2.zero, spawnRoom.transform.localScale))
             placementQueue.Add(new SpawnInformation(Vector2.zero, spawnRoom));
+    }
+
+    private void EndGeneration()
+    {
+        if (!spawnedBossRoom)
+            StartGeneration();
+
+        SpawnWalls();
+        CheckHallwayPlacement();
+        RemoveColliders();
+
+        OnDoneGenerating?.Invoke();
     }
 
     private void Rooms()
@@ -315,6 +323,12 @@ public class DungeonGenerator : MonoBehaviour
                 spawned.localScale = new Vector2(1 / parent.localScale.x, 1 / parent.localScale.y);
             }
         }
+    }
+
+    private void RemoveColliders()
+    {
+        foreach (Transform item in spawnedObjects)
+            Destroy(item.GetComponent<Collider2D>());
     }
 }
 

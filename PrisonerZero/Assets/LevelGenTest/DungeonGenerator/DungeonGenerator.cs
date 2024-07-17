@@ -24,7 +24,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField]
     private int maxRooms = 10;
 
-    private int currentRooms = 100000;
+    private int currentRooms;
 
     private List<SpawnInformation> placementQueue = new();
     private List<Transform> spawnedObjects;
@@ -52,13 +52,7 @@ public class DungeonGenerator : MonoBehaviour
         }
         else if(spawnedHallways.Count > 0)
         {
-            if (!spawnedBossRoom)
-                StartGeneration();
-
-            SpawnWalls();
-            CheckHallwayPlacement();
-            ManageColliders();
-
+            EndGeneration();
         }
     }
 
@@ -83,8 +77,8 @@ public class DungeonGenerator : MonoBehaviour
         if (!spawnedBossRoom)
             StartGeneration();
 
-        SpawnWalls();
         CheckHallwayPlacement();
+        SpawnWalls();
         ManageColliders();
 
         OnDoneGenerating?.Invoke();
@@ -339,6 +333,7 @@ public class DungeonGenerator : MonoBehaviour
             Destroy(item.GetComponent<Collider2D>());
 
         // colliders on walls
+        wallColliders.RemoveAll(x => x == null);
         foreach (Collider2D item in wallColliders)
             item.enabled = true;
     }

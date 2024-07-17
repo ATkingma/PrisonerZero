@@ -6107,7 +6107,7 @@ GameObject:
   - component: {fileID: 1826269949}
   - component: {fileID: 1826269950}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: SceneHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6175,7 +6175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1826269946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbc72e6941470ae48ad4149297631e12, type: 3}
+  m_Script: {fileID: 11500000, guid: 18a438c8923c20043a3cfeb97df9935b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1877949632

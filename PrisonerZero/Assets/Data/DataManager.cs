@@ -34,7 +34,6 @@ public class DataManager : MonoBehaviour
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
 
         savePath = dev ? Path.Combine(Application.persistentDataPath, "playerdata.json") : Path.Combine(Application.persistentDataPath, "playerdata.dat");
 

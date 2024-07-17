@@ -7,7 +7,7 @@ public class PlayerData
 {
     public PlayerData()
     {
-        valuta = new Valuta(69,0,0,0,0,0,0,0);
+        valuta = new Valuta(2000000,0,0,0,0,0,0,0);
         playerSettings = new PlayerSettings();
         skillTree = new SkillTreeData();
     }

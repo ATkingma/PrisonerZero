@@ -30,6 +30,39 @@ public class Valuta
     public int PhoenixTokens => phoenixTokens;
     public int InfinityTokens => infinityTokens;
 
+    public void SetValuta(Valutas valuta, int value)
+    {
+        switch (valuta)
+        {
+            case Valutas.SoulFragments:
+                soulFragments = value;
+                break;
+            case Valutas.DevineTokens:
+                devineTokens = value;
+                break;
+            case Valutas.AscensionTokens:
+                ascensionTokens = value;
+                break;
+            case Valutas.PrestigeTokens:
+                prestigeTokens = value;
+                break;
+            case Valutas.ValorTokens:
+                valorTokens = value;
+                break;
+            case Valutas.EtherealTokens:
+                etherealTokens = value;
+                break;
+            case Valutas.PhoenixTokens:
+                phoenixTokens = value;
+                break;
+            case Valutas.InfinityTokens:
+                infinityTokens = value;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(valuta), valuta, null);
+        }
+    }
+
     public Valuta(int soulFragments, int devineTokens, int ascensionTokens, int prestigeTokens,
                   int valorTokens, int etherealTokens, int phoenixTokens, int infinityTokens)
     {

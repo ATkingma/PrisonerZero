@@ -12,7 +12,6 @@ public class DataManager : MonoBehaviour
     private static DataManager instance;
 
     private void OnApplicationQuit() {
-        print(currentPlayerData);
         SavePlayerData(); }
 
     private PlayerData currentPlayerData;

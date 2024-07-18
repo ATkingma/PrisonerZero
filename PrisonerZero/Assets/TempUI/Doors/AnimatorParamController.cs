@@ -11,7 +11,7 @@ public class AnimatorParamController : MonoBehaviour
     private Animator anim;
 
     [SerializeField]
-    private string name;
+    private string paramName;
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class AnimatorParamController : MonoBehaviour
     public void SetAnimValue(int _newValue)
     {
         if (this.isActiveAndEnabled)
-            anim.SetInteger(name, _newValue);   
+            anim.SetInteger(paramName, _newValue);   
     }
 
     public void SetAnimValueDelayed(int value)

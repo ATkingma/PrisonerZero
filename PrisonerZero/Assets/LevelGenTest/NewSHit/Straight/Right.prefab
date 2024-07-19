@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnLocations:
   - newSpawnLocation: {x: 20, y: 0}
-    direction: 4
+    direction: 04000000
   boundries:
   - {fileID: 3923601371656417170}
   startCheck: {fileID: 2955340989378054113}

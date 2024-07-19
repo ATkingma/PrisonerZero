@@ -24,7 +24,7 @@ public class Hallway : MonoBehaviour
 public class SpawnInfo
 {
     public Vector2 newSpawnLocation;
-    public SpawnDirection direction;
+    public List<SpawnDirection> direction;
 }
 
 public enum SpawnDirection

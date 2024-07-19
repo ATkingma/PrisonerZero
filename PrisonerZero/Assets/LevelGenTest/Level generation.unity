@@ -243,11 +243,22 @@ MonoBehaviour:
   - {fileID: 964771521455261263, guid: e2f5e1d6328eacc4d93a0c99d9596c4e, type: 3}
   - {fileID: 964771521455261263, guid: f8d4ff4760c2a954b8f66d5112cb3c0c, type: 3}
   hallwayList:
+  - {fileID: 6647769954093468987, guid: a9d57587c7734e34f9eb008a3e541f4f, type: 3}
+  - {fileID: 6234149076788626415, guid: 65c32f7a1327dfc43b894cbd89299d41, type: 3}
+  - {fileID: 3630768887059659118, guid: 887b6ab7296dc694dbda500c7def50da, type: 3}
+  - {fileID: 6776151339395500178, guid: 9452b3d840b34a943a801257f1ec3897, type: 3}
+  - {fileID: 3588932497084864628, guid: d99ba20887b6b064ca84c6e9eeeecb8c, type: 3}
+  - {fileID: 5657717952412251227, guid: e67e9858bff08624ab550b3d68181f7b, type: 3}
+  - {fileID: 4398257016394494509, guid: 80bc2263d2fd4a340ab3f22e017dd55e, type: 3}
+  - {fileID: 1670088770460483818, guid: 7e26744dd98dc6a4699200c38b79b6ca, type: 3}
   - {fileID: 5483773916656926748, guid: 1b057c1f99bd9164bae2f645b0c307ff, type: 3}
   - {fileID: 7538090875849570294, guid: 81c6b65535b29e04cba4e74b4b1423d7, type: 3}
   - {fileID: 7300962689653454775, guid: c2fecf71a768b4b47991a48337ed58b2, type: 3}
   - {fileID: 7794421796460342419, guid: 16a86e4f7627733438d7e3a0b493966d, type: 3}
   maxRooms: 10
+  OnDoneGenerating:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1706549334
 Transform:
   m_ObjectHideFlags: 0

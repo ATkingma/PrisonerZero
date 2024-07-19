@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -42,11 +43,12 @@ public class DungeonGenerator : MonoBehaviour
 
         if (placementQueue.Count > 0)
         {
-            if (placementQueue[0].objectToSpawn.CompareTag("Room"))
+            GameObject toSpawn = placementQueue[0].objectToSpawn;
+            if (toSpawn.CompareTag("Room"))
                 Rooms();
-            else if (placementQueue[0].objectToSpawn.CompareTag("Hallway"))
+            else if (toSpawn.CompareTag("Hallway"))
                 Hallways();
-            else if (placementQueue[0].objectToSpawn.CompareTag("BossRoom"))
+            else if (toSpawn.CompareTag("BossRoom"))
                 BossRoom();
 
         }
@@ -120,7 +122,7 @@ public class DungeonGenerator : MonoBehaviour
         float halfWidthHallway = localScale.x / 2;
         float halfHeightHallway = localScale.y / 2;
 
-        SpawnDirection direction = placementQueue[0].objectToSpawn.GetComponent<Hallway>().Positions[0].direction;
+        SpawnDirection direction = placementQueue[0].objectToSpawn.GetComponent<Hallway>().Positions[0].direction[0];
 
         Hallway component = placementQueue[0].objectToSpawn.GetComponent<Hallway>();
 
@@ -129,7 +131,6 @@ public class DungeonGenerator : MonoBehaviour
         float halfWidth = roomScale.x / 2;
         float halfHeight = roomScale.y / 2;
 
-        // remove hallways die nergens naatoe gaan.
         Vector2 checkLocation = Vector2.zero;
         Vector2 checkNextRoomLocation = Vector2.zero;
         if (direction == SpawnDirection.Left)
@@ -157,7 +158,7 @@ public class DungeonGenerator : MonoBehaviour
         {
             Transform spawnedObject = SpawnObject(placementQueue[0]);
             placementQueue.RemoveAt(0);
-            MakeRoom(spawnedObject);
+            MakeRoom(spawnedObject, component.Positions[0].direction.Count > 1 ? component.Positions[0].direction[1] : SpawnDirection.None);
         }
         else
         {
@@ -182,7 +183,7 @@ public class DungeonGenerator : MonoBehaviour
         return spawned;
     }
 
-    private void MakeRoom(Transform spawnedHallway)
+    private void MakeRoom(Transform spawnedHallway, SpawnDirection directionOverride = SpawnDirection.None)
     {
         if (currentRooms >= maxRooms && !spawnedBossRoom)
         {
@@ -203,13 +204,14 @@ public class DungeonGenerator : MonoBehaviour
         Vector2 downSpawnlocation = (Vector2)spawnedHallway.position + component.Positions[0].newSpawnLocation + new Vector2(0, -halfHeight);
         Vector2 location = Vector2.zero;
 
-        if (component.Positions[0].direction == SpawnDirection.Left && !CheckRoomPlacement(leftSpawnlocation, localScale))
+        SpawnDirection spawnDirection = directionOverride == SpawnDirection.None ? component.Positions[0].direction[0] : directionOverride;
+        if (spawnDirection == SpawnDirection.Left && !CheckRoomPlacement(leftSpawnlocation, localScale))
             location = leftSpawnlocation;
-        else if (component.Positions[0].direction == SpawnDirection.Right && !CheckRoomPlacement(rightSpawnlocation, localScale))
+        else if (spawnDirection == SpawnDirection.Right && !CheckRoomPlacement(rightSpawnlocation, localScale))
             location = rightSpawnlocation;
-        else if (component.Positions[0].direction == SpawnDirection.Up && !CheckRoomPlacement(upSpawnlocation, localScale))
+        else if (spawnDirection == SpawnDirection.Up && !CheckRoomPlacement(upSpawnlocation, localScale))
             location = upSpawnlocation;
-        else if (component.Positions[0].direction == SpawnDirection.Down && !CheckRoomPlacement(downSpawnlocation, localScale))
+        else if (spawnDirection == SpawnDirection.Down && !CheckRoomPlacement(downSpawnlocation, localScale))
             location = downSpawnlocation;
         else
             currentRooms--;
@@ -238,7 +240,7 @@ public class DungeonGenerator : MonoBehaviour
         Vector2 upSpawnlocation = newSpawnlocation + new Vector2(0, halfHeightRoom);
         Vector2 downSpawnlocation = newSpawnlocation - new Vector2(0, halfHeightRoom);
 
-        SpawnDirection direction = component.Positions[0].direction;
+        SpawnDirection direction = component.Positions[0].direction[0];
 
         if (direction == SpawnDirection.Left && !CheckRoomPlacement(leftSpawnlocation + new Vector2(-halfWidthHallway,0), localScale))
             placementQueue.Add(new SpawnInformation(leftSpawnlocation, newHallway));
@@ -265,13 +267,13 @@ public class DungeonGenerator : MonoBehaviour
         Vector2 downSpawnlocation = (Vector2)spawnedHallway.position + component.Positions[0].newSpawnLocation + new Vector2(0, -halfHeight);
         Vector2 location = Vector2.zero;
 
-        if (component.Positions[0].direction == SpawnDirection.Left && !CheckRoomPlacement(leftSpawnlocation, localScale))
+        if (component.Positions[0].direction[0] == SpawnDirection.Left && !CheckRoomPlacement(leftSpawnlocation, localScale))
             location = leftSpawnlocation;
-        else if (component.Positions[0].direction == SpawnDirection.Right && !CheckRoomPlacement(rightSpawnlocation, localScale))
+        else if (component.Positions[0].direction[0] == SpawnDirection.Right && !CheckRoomPlacement(rightSpawnlocation, localScale))
             location = rightSpawnlocation;
-        else if (component.Positions[0].direction == SpawnDirection.Up && !CheckRoomPlacement(upSpawnlocation, localScale))
+        else if (component.Positions[0].direction[0] == SpawnDirection.Up && !CheckRoomPlacement(upSpawnlocation, localScale))
             location = upSpawnlocation;
-        else if (component.Positions[0].direction == SpawnDirection.Down && !CheckRoomPlacement(downSpawnlocation, localScale))
+        else if (component.Positions[0].direction[0] == SpawnDirection.Down && !CheckRoomPlacement(downSpawnlocation, localScale))
             location = downSpawnlocation;
         else
             currentRooms--;

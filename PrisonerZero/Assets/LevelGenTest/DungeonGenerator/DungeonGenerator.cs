@@ -231,25 +231,29 @@ public class DungeonGenerator : MonoBehaviour
 
         GameObject newHallway = hallwayList[UnityEngine.Random.Range(0, hallwayList.Count)];
         Hallway component = newHallway.GetComponent<Hallway>();
-        Vector2 localScale = newHallway.transform.GetChild(0).localScale;
-        float halfWidthHallway = localScale.x / 2;
-        float halfHeightHallway = localScale.y / 2;
 
-        Vector2 leftSpawnlocation = newSpawnlocation - new Vector2(halfWidthRoom, 0);
-        Vector2 rightSpawnlocation = newSpawnlocation + new Vector2(halfWidthRoom, 0);
-        Vector2 upSpawnlocation = newSpawnlocation + new Vector2(0, halfHeightRoom);
-        Vector2 downSpawnlocation = newSpawnlocation - new Vector2(0, halfHeightRoom);
-
+        Transform[] childs = newHallway.GetComponentsInChildren<Transform>();
         SpawnDirection direction = component.Positions[0].direction[0];
+        foreach (Transform child in childs)
+        {
+            Vector2 localScale = child.localScale;
+            float halfWidthHallway = localScale.x / 2;
+            float halfHeightHallway = localScale.y / 2;
 
-        if (direction == SpawnDirection.Left && !CheckRoomPlacement(leftSpawnlocation + new Vector2(-halfWidthHallway,0), localScale))
-            placementQueue.Add(new SpawnInformation(leftSpawnlocation, newHallway));
-        else if (direction == SpawnDirection.Right && !CheckRoomPlacement(rightSpawnlocation + new Vector2(halfWidthHallway, 0), localScale))
-            placementQueue.Add(new SpawnInformation(rightSpawnlocation, newHallway));
-        else if (direction == SpawnDirection.Up && !CheckRoomPlacement(upSpawnlocation + new Vector2(0, halfHeightHallway), localScale))
-            placementQueue.Add(new SpawnInformation(upSpawnlocation, newHallway));
-        else if (direction == SpawnDirection.Down && !CheckRoomPlacement(downSpawnlocation + new Vector2(0, -halfHeightHallway), localScale))
-            placementQueue.Add(new SpawnInformation(downSpawnlocation, newHallway));
+            Vector2 leftSpawnlocation = newSpawnlocation - new Vector2(halfWidthRoom, 0);
+            Vector2 rightSpawnlocation = newSpawnlocation + new Vector2(halfWidthRoom, 0);
+            Vector2 upSpawnlocation = newSpawnlocation + new Vector2(0, halfHeightRoom);
+            Vector2 downSpawnlocation = newSpawnlocation - new Vector2(0, halfHeightRoom);
+
+            if (direction == SpawnDirection.Left && !CheckRoomPlacement(leftSpawnlocation + new Vector2(-halfWidthHallway, 0), localScale))
+                placementQueue.Add(new SpawnInformation(leftSpawnlocation, newHallway));
+            else if (direction == SpawnDirection.Right && !CheckRoomPlacement(rightSpawnlocation + new Vector2(halfWidthHallway, 0), localScale))
+                placementQueue.Add(new SpawnInformation(rightSpawnlocation, newHallway));
+            else if (direction == SpawnDirection.Up && !CheckRoomPlacement(upSpawnlocation + new Vector2(0, halfHeightHallway), localScale))
+                placementQueue.Add(new SpawnInformation(upSpawnlocation, newHallway));
+            else if (direction == SpawnDirection.Down && !CheckRoomPlacement(downSpawnlocation + new Vector2(0, -halfHeightHallway), localScale))
+                placementQueue.Add(new SpawnInformation(downSpawnlocation, newHallway));
+        }
     }
 
     private void SpawnBossRoom(Transform spawnedHallway)
